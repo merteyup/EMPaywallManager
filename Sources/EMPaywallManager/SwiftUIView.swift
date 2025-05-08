@@ -20,7 +20,10 @@ public struct PaywallView: View {
                 onDismiss: (() -> Void)? = nil) {
         self.model = model
         self.onSubscribe = onSubscribe
+        self.onRestore = onRestore
+        self.onDismiss = onDismiss
     }
+
     
     
     public var body: some View {
