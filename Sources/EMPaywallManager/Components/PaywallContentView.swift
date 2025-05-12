@@ -12,12 +12,35 @@ struct PaywallContentView: View {
     
     var body: some View {
         VStack(spacing: 16) {
-            if let iconName = model.iconName {
-                Image(systemName: iconName)
+            
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    EMIconLabel(messages: model.featureMessages,
+                                isAnimated: true,
+                                icon: model.featureIcon)
+                }
+            }
+            .padding()
+            
+            Text(model.features.first?.price ?? "")
+                .font(.title2)
+                .bold()
+        }
+    }
+}
+
+
+struct IconWithTitleView: View {
+    let model: PaywallModel
+    
+    var body: some View {
+        VStack(spacing: 16) {
+            if let mainIconName = model.mainIcon?.name {
+                Image(systemName: mainIconName)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 60, height: 60)
-                    .foregroundColor(.blue)
+                    .foregroundColor(model.mainIcon?.color ?? .primary)
             }
             
             Text(model.title)
@@ -29,21 +52,10 @@ struct PaywallContentView: View {
                 .font(.subheadline)
                 .foregroundColor(.gray)
                 .multilineTextAlignment(.center)
-            
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    EMIconLabel(messages: model.features, isAnimated: true)
-                }
-            }
-            .padding()
-            
-            Text(model.price)
-                .font(.title2)
-                .bold()
         }
     }
 }
 
 #Preview {
-    PaywallContentView(model: PaywallModel.mock)
+    PaywallContentView(model: PaywallModel.mockClassic)
 }
