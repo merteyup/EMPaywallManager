@@ -1,8 +1,18 @@
-// Step 1: Define the event model
+//
+//  PaywallAnalyticsEvent.swift
+//  EMPaywallManager
+//
+//  Created by Eyüp Mert on 10.05.2025.
+//
 
-/// Represents an analytics event related to paywall usage.
+import SwiftUI
+
 public struct PaywallAnalyticsEvent {
-    /// What kind of action user performed.
+    public let action: Action
+    public let variant: PaywallType
+    public let userId: String?
+    public let timestamp: Date
+
     public enum Action: String {
         case shown
         case subscribe
@@ -10,12 +20,12 @@ public struct PaywallAnalyticsEvent {
         case dismiss
     }
 
-    public let action: Action
-    public let variant: PaywallType
-    public let userId: String?
-    public let timestamp: Date
-
-    public init(action: Action, variant: PaywallType, userId: String? = nil, timestamp: Date = Date()) {
+    public init(
+        action: Action,
+        variant: PaywallType,
+        userId: String? = nil,
+        timestamp: Date = Date()
+    ) {
         self.action = action
         self.variant = variant
         self.userId = userId
