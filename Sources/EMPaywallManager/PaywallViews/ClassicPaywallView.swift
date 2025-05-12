@@ -10,30 +10,32 @@ import SwiftUI
 public struct ClassicPaywallView: PaywallViewProtocol {
     
     public let model: PaywallModel
-    public var onSubscribe: (() -> Void)?
+    public var onSubscribe: ((Feature) -> Void)?
     public var onRestore: (() -> Void)?
     public var onDismiss: (() -> Void)?
+    @State private var selectedFeature: Feature
     
     public init(model: PaywallModel,
-                onSubscribe: (() -> Void)? = nil,
+                onSubscribe: ((Feature) -> Void)? = nil,
                 onRestore: (() -> Void)? = nil,
                 onDismiss: (() -> Void)? = nil) {
         self.model = model
         self.onSubscribe = onSubscribe
         self.onRestore = onRestore
         self.onDismiss = onDismiss
+        _selectedFeature = State(initialValue: model.features.first ?? Feature.fallbackWithLogging(reason: "ClassicPaywallView: No features available"))
     }
-
-    
     
     public var body: some View {
         VStack(spacing: 16) {
             
-            DismissButton(onDismiss: onDismiss)
+            DismissButton(alignment: .leading, onDismiss: onDismiss)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 16)
             
             Spacer()
+            
+            IconWithTitleView(model: model)
             
             PaywallContentView(model: model)
             
@@ -42,7 +44,8 @@ public struct ClassicPaywallView: PaywallViewProtocol {
             PaywallFooterView(model: model,
                               onSubscribe: onSubscribe,
                               onRestore: onRestore,
-                              onDismiss: onDismiss)
+                              onDismiss: onDismiss,
+                              selectedFeature: $selectedFeature)
         }
         .padding()
     }
@@ -50,8 +53,8 @@ public struct ClassicPaywallView: PaywallViewProtocol {
 
 #Preview {
     ClassicPaywallView(
-        model: PaywallModel.mock,
-        onSubscribe: { },
+        model: PaywallModel.mockClassic,
+        onSubscribe: { _ in },
         onRestore: { },
         onDismiss: { }
     )
