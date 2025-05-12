@@ -10,30 +10,37 @@ import SwiftUI
 public struct ModernPaywallView: PaywallViewProtocol {
     
     public let model: PaywallModel
-    public var onSubscribe: (() -> Void)?
+    public var onSubscribe: ((Feature) -> Void)?
     public var onRestore: (() -> Void)?
     public var onDismiss: (() -> Void)?
+    @State private var selectedFeature: Feature
     
     public init(model: PaywallModel,
-                onSubscribe: (() -> Void)? = nil,
+                onSubscribe: ((Feature) -> Void)? = nil,
                 onRestore: (() -> Void)? = nil,
                 onDismiss: (() -> Void)? = nil) {
         self.model = model
         self.onSubscribe = onSubscribe
         self.onRestore = onRestore
         self.onDismiss = onDismiss
+        _selectedFeature = State(initialValue: model.features.first ?? Feature.fallbackWithLogging(reason: "ModernPaywallView: No features available"))
     }
-
-    
     
     public var body: some View {
         VStack(spacing: 16) {
             
-            DismissButton(onDismiss: onDismiss)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            DismissButton(alignment: .trailing,
+                          backgroundColor: .secondary,
+                          onDismiss: onDismiss)
+                .frame(maxWidth: .infinity,
+                       alignment: .trailing)
                 .padding(.top, 16)
-                .background(Color.red)
             
+            Spacer()
+            
+            IconWithTitleView(model: model)
+            
+            Spacer()
             Spacer()
             
             PaywallContentView(model: model)
@@ -43,7 +50,8 @@ public struct ModernPaywallView: PaywallViewProtocol {
             PaywallFooterView(model: model,
                               onSubscribe: onSubscribe,
                               onRestore: onRestore,
-                              onDismiss: onDismiss)
+                              onDismiss: onDismiss,
+                              selectedFeature: $selectedFeature)
         }
         .padding()
     }
@@ -51,8 +59,8 @@ public struct ModernPaywallView: PaywallViewProtocol {
 
 #Preview {
     ModernPaywallView(
-        model: PaywallModel.mock,
-        onSubscribe: { },
+        model: PaywallModel.mockModern,
+        onSubscribe: { feature in print("Subscribed to: \(feature)") },
         onRestore: { },
         onDismiss: { }
     )
