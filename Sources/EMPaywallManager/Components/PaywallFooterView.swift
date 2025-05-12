@@ -9,14 +9,15 @@ import SwiftUI
 
 struct PaywallFooterView: View {
     let model: PaywallModel
-    let onSubscribe: (() -> Void)?
+    let onSubscribe: ((Feature) -> Void)?
     let onRestore: (() -> Void)?
     let onDismiss: (() -> Void)?
+    @Binding var selectedFeature: Feature
     
     var body: some View {
         VStack(spacing: 8) {
-            PaywallButton(title: model.buttonTitle) {
-                onSubscribe?()
+            PaywallButton(with: model.paywallButton) {
+                onSubscribe?(selectedFeature)
             }
             
             Button("Restore Purchases") {
@@ -58,10 +59,12 @@ struct PaywallFooterView: View {
 }
 
 #Preview {
+    @State var selectedFeature = PaywallModel.mockClassic.features.first!
     PaywallFooterView(
-        model: PaywallModel.mock,
-        onSubscribe: { print("Subscribed") },
+        model: PaywallModel.mockClassic,
+        onSubscribe: { feature in print("Subscribed \(feature)") },
         onRestore: { print("Restored") },
-        onDismiss: { print("Dismissed") }
+        onDismiss: { print("Dismissed") },
+        selectedFeature: $selectedFeature
     )
 }
