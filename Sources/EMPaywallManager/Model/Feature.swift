@@ -1,25 +1,35 @@
+//
+//  Feature.swift
+//  EMPaywallManager
+//
+//  Created by Eyüp Mert on 12.05.2025.
+//
 
 public struct Feature: Hashable, Sendable {
     public let title: String
     public let description: String
     public let price: String
+    public let iconName: String?
     
-    public init(title: String, description: String = "", price: String) {
+    public init(title: String, description: String = "", price: String, iconName: String? = nil) {
         self.title = title
         self.description = description
         self.price = price
+        self.iconName = iconName
     }
     
     public static func == (lhs: Feature, rhs: Feature) -> Bool {
         return lhs.title == rhs.title &&
         lhs.description == rhs.description &&
-        lhs.price == rhs.price
+        lhs.price == rhs.price &&
+        lhs.iconName == rhs.iconName
     }
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(title)
         hasher.combine(description)
         hasher.combine(price)
+        hasher.combine(iconName)
     }
     
     public static let fallback = Feature(
