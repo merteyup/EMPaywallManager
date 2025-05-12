@@ -7,21 +7,34 @@
 
 import SwiftUI
 
-final class PaywallABManager {
+@MainActor
+public final class PaywallABManager {
     private let key = "selectedPaywallType"
+    private var availableVariants: [PaywallType] = []
 
-    static let shared = PaywallABManager()
+    public static let shared = PaywallABManager()
 
     private init() {}
 
-    var assignedType: PaywallType {
-        if let raw = UserDefaults.standard.string(forKey: key),
-           let type = PaywallType(rawValue: raw) {
-            return type
-        } else {
-            let randomType = PaywallType.allCases.randomElement()!
-            UserDefaults.standard.set(randomType.rawValue, forKey: key)
-            return randomType
+    public func configure(variants: [PaywallType]) {
+#if DEBUG
+UserDefaults.standard.removeObject(forKey: key)
+#endif
+        precondition(variants.count == 2, "Exactly two variants are required for A/B testing.")
+        availableVariants = variants
+
+        if UserDefaults.standard.string(forKey: key) == nil {
+            let random = variants.randomElement()!
+            UserDefaults.standard.set(random.rawValue, forKey: key)
+            print("✅ Assigned variant: \(random.rawValue)")
         }
+    }
+
+    public var assignedType: PaywallType {
+        guard let raw = UserDefaults.standard.string(forKey: key),
+              let type = PaywallType(rawValue: raw) else {
+            fatalError("PaywallABManager not configured. Call configure() before using.")
+        }
+        return type
     }
 }
