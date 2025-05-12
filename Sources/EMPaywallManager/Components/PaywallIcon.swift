@@ -1,13 +1,20 @@
+//
+//  PaywallIcon.swift
+//  EMPaywallManager
+//
+//  Created by Eyüp Mert on 12.05.2025.
+//
+
 import SwiftUI
 
-public struct PaywallIcon: Hashable {
-    public let systemName: String
+public struct PaywallIcon: Hashable, Sendable {
+    public let name: String
     public let color: Color
 
-    public init(systemName: String, color: Color = .blue) {
-        self.systemName = systemName
+    public init(name: String, color: Color = .blue) {
+        self.name = name
         self.color = color
     }
 
-    public static let `default` = PaywallIcon(systemName: "star.fill", color: .blue)
+    public static let `default` = PaywallIcon(name: "star.fill", color: .blue)
 }
