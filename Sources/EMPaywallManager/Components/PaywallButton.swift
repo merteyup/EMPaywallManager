@@ -7,24 +7,27 @@
 
 import SwiftUI
 
-
 public struct PaywallButton: View {
-    let title: String
+    let model: PaywallButtonModel
     let action: () -> Void
     
-    public init(title: String, action: @escaping () -> Void) {
-        self.title = title
+    public init(with model: PaywallButtonModel,
+                action: @escaping () -> Void) {
+        self.model = model
         self.action = action
     }
     
     public var body: some View {
         Button(action: action) {
-            Text(title)
+            Text(model.title)
                 .font(.headline)
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity, minHeight: 50)
-                .background(Color.blue)
-                .clipShape(Capsule())
+                .foregroundColor(model.foregroundColor)
+                .frame(maxWidth: .infinity,
+                       minHeight: 50)
+                .background(model.backgroundColor)
+                .clipShape(
+                    RoundedRectangle(cornerRadius: model.cornerRadius ?? 25, style: .continuous)
+                )
         }
         .padding()
         .clipShape(.capsule)
@@ -32,7 +35,7 @@ public struct PaywallButton: View {
 }
 
 #Preview {
-    PaywallButton(title: "Tap to Subscribe") {
+    PaywallButton(with: PaywallButtonModel(title: "Subscribe")) {
         print("Subscription tapped")
     }
 }
