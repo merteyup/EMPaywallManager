@@ -1,3 +1,10 @@
+//
+//  AnyPaywallContainerView.swift
+//  EMPaywallManager
+//
+//  Created by Eyüp Mert on 8.05.2025.
+//
+
 import SwiftUI
 
 public struct AnyPaywallContainerView: View {
