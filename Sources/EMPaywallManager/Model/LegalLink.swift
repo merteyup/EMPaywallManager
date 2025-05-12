@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct LegalLink: Identifiable {
+public struct LegalLink: Identifiable, Hashable {
     public let id = UUID()
     public let title: String
     public let url: URL
