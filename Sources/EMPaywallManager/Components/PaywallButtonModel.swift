@@ -1,21 +1,22 @@
 //
-//  PaywallButton 2.swift
+//  PaywallButtonModel.swift
 //  EMPaywallManager
 //
 //  Created by Eyüp Mert on 12.05.2025.
 //
 
+import SwiftUI
 
 public struct PaywallButtonModel: Hashable {
     public let title: String
-    public let backgroundColor: String?
-    public let foregroundColor: String?
+    public let backgroundColor: Color?
+    public let foregroundColor: Color?
     public let cornerRadius: CGFloat?
 
     public init(
         title: String,
-        backgroundColor: String? = nil,
-        foregroundColor: String? = nil,
+        backgroundColor: Color? = nil,
+        foregroundColor: Color? = nil,
         cornerRadius: CGFloat? = nil
     ) {
         self.title = title
