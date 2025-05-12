@@ -15,9 +15,29 @@ enum IconAlignment {
 struct EMIconLabel: View {
     let messages: [String]
     let isAnimated: Bool
-    var iconAlignment: IconAlignment = .left
-    var iconImage: String = "checkmark.circle.fill"
+    let iconAlignment: IconAlignment
+    let icon: PaywallIcon?
+
+    init(
+        messages: [String],
+        isAnimated: Bool,
+        iconAlignment: IconAlignment = .left,
+        icon: PaywallIcon? = nil
+    ) {
+        self.messages = messages
+        self.isAnimated = isAnimated
+        self.iconAlignment = iconAlignment
+        self.icon = icon
+    }
+
+    private var iconName: String {
+        icon?.name ?? "checkmark.circle.fill"
+    }
     
+    private var iconColor: Color {
+        icon?.color ?? .green
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             if messages.isEmpty {
@@ -30,12 +50,12 @@ struct EMIconLabel: View {
                         if iconAlignment == .left {
                             iconView
                         }
-                        
+
                         Text(message)
                             .font(.callout)
                             .lineLimit(1)
                             .minimumScaleFactor(0.7)
-                        
+
                         if iconAlignment == .right {
                             Spacer()
                             iconView
@@ -48,17 +68,14 @@ struct EMIconLabel: View {
         .padding(.horizontal, 6)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
-    
+
     private var iconView: some View {
-        ZStack {
-            Image(systemName: iconImage)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .foregroundColor(isAnimated ? .green : .gray)
-                .font(.system(size: 24, weight: .bold))
-                .frame(width: 24, height: 24)
-        }
-        .animation(.easeInOut(duration: isAnimated ? 0.5 : 0), value: isAnimated)
+        Image(systemName: iconName)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .foregroundColor(isAnimated ? iconColor : .gray)
+            .frame(width: 24, height: 24)
+            .animation(.easeInOut(duration: isAnimated ? 0.5 : 0), value: isAnimated)
     }
 }
 
