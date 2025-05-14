@@ -37,6 +37,12 @@ public struct Feature: Hashable, Sendable {
         description: "Full access to all premium features",
         price: "$4.99/month"
     )
+    
+    public static let mock = Feature(
+        title: "Premium Access",
+        description: "Full access to all premium features",
+        price: "$4.99/month"
+    )
 }
 
 extension Feature {
