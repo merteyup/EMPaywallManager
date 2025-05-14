@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "EMPaywallManager",
     platforms: [
-        .iOS(.v14),
+        .iOS(.v15),
         .macOS(.v13),
         .tvOS(.v13),
         .watchOS(.v6)
