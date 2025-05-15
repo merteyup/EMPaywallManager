@@ -32,14 +32,16 @@ struct PaywallFooterView: View {
             .font(.footnote)
             .foregroundColor(.secondary)
             
-            if let links = model.legalLinks {
+            if let legalTextArea = model.legalTextArea,
+               let links = legalTextArea.legalLinks {
                 HStack(spacing: 4) {
                     ForEach(links) { link in
                         Button(link.title) {
+                            guard let url = URL(string: link.url) else { return }
 #if os(iOS) || os(tvOS)
-                            UIApplication.shared.open(link.url)
+                            UIApplication.shared.open(url)
 #elseif os(macOS)
-                            NSWorkspace.shared.open(link.url)
+                            NSWorkspace.shared.open(url)
 #endif
                         }
                         .font(.caption)

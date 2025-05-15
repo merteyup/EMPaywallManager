@@ -27,24 +27,39 @@ public struct PaywallFactory {
         switch type {
         case .classic:
             view = ClassicPaywallView(
-                model: model,
-                onSubscribe: onSubscribe,
-                onRestore: onRestore,
-                onDismiss: onDismiss
+                viewModel: ClassicPaywallViewModel(
+                    model: model,
+                    onSubscribe: { _ in },
+                    onRestore: { },
+                    onDismiss: { }
+                )
             )
         case .modern:
             view = ModernPaywallView(
-                model: model,
-                onSubscribe: onSubscribe,
-                onRestore: onRestore,
-                onDismiss: onDismiss
+                viewModel: ModernPaywallViewModel(
+                    model: model,
+                    onSubscribe: { _ in },
+                    onRestore: { },
+                    onDismiss: { }
+                )
             )
         case .minimalist:
             view = MinimalistPaywallView(
-                model: model,
-                onSubscribe: onSubscribe,
-                onRestore: onRestore,
-                onDismiss: onDismiss
+                viewModel: MinimalistPaywallViewModel(
+                    model: model,
+                    onSubscribe: { _ in },
+                    onRestore: { },
+                    onDismiss: { }
+                )
+            )
+        case .bold:
+            view = BoldPaywallView(
+                viewModel: BoldPaywallViewModel(
+                    model: model,
+                    onSubscribe: { _ in },
+                    onRestore: { },
+                    onDismiss: { }
+                )
             )
         default:
             fatalError("\(type.rawValue.capitalized) Paywall is not implemented yet.")

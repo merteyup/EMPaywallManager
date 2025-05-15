@@ -7,60 +7,48 @@
 
 import SwiftUI
 
-struct MinimalistPaywallView: PaywallViewProtocol {
-    private let model: PaywallModel
-    public var onSubscribe: ((Feature) -> Void)?
-    public var onRestore: (() -> Void)?
-    public var onDismiss: (() -> Void)?
-    @State private var selectedFeature: Feature
 
-    public init(
-        model: PaywallModel,
-        onSubscribe: ((Feature) -> Void)? = nil,
-        onRestore: (() -> Void)? = nil,
-        onDismiss: (() -> Void)? = nil
-    ) {
-        self.model = model
-        self.onSubscribe = onSubscribe
-        self.onRestore = onRestore
-        self.onDismiss = onDismiss
-        _selectedFeature = State(initialValue: model.features.first ?? Feature.fallbackWithLogging(reason: "MinimalistPaywallView: No features available"))
+public struct MinimalistPaywallView: PaywallViewProtocol {
+    @StateObject public var viewModel: MinimalistPaywallViewModel
+
+    public init(viewModel: MinimalistPaywallViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
 
     public var body: some View {
         VStack {
             HStack {
-                Text(model.title)
+                Text(viewModel.model.title)
                     .font(.title.weight(.bold))
                     .foregroundColor(.primary)
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Button {
-                    onDismiss?()
+                    viewModel.onDismiss?()
                 } label: {
                     Image(systemName: "xmark")
                 }
             }
-            
+
             Divider()
-            
-            Text(model.subtitle)
+
+            Text(viewModel.model.subtitle)
                 .font(.largeTitle.weight(.bold))
                 .foregroundColor(.primary)
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .center)
-            
-            SubscriptionView(model: model, selectedFeature: $selectedFeature)
+
+            SubscriptionView(model: viewModel.model, selectedFeature: $viewModel.selectedFeature)
                 .padding(.top, 20)
-            
+
             Spacer()
 
             ActionButtonsView(
-                model: model,
-                onSubscribe: onSubscribe,
-                onRestore: onRestore,
-                onDismiss: onDismiss,
-                selectedFeature: $selectedFeature
+                model: viewModel.model,
+                onSubscribe: viewModel.onSubscribe,
+                onRestore: viewModel.onRestore,
+                onDismiss: viewModel.onDismiss,
+                selectedFeature: $viewModel.selectedFeature
             )
                 .padding(.top, 20)
         }
@@ -68,6 +56,7 @@ struct MinimalistPaywallView: PaywallViewProtocol {
         .frame(maxHeight: .infinity)
     }
 }
+
 
 struct SubscriptionView: View {
     @State private var selectedOptionIndex: Int = 0
@@ -178,12 +167,12 @@ struct ActionButtonsView: View {
     }
 }
 
-
 #Preview {
-    MinimalistPaywallView(
+    let viewModel = MinimalistPaywallViewModel(
         model: PaywallModel.mockMinimal,
-        onSubscribe: { feature in print("Subscribed \(feature)")},
+        onSubscribe: { feature in print("Subscribed \(feature)") },
         onRestore: { print("Restored") },
         onDismiss: { print("Dismissed") }
     )
+    return MinimalistPaywallView(viewModel: viewModel)
 }

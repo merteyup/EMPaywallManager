@@ -14,8 +14,9 @@ public struct PaywallModel: Hashable {
     public let subtitle: String
     public let features: [Feature]
     public let featureIcon: PaywallIcon?
+    public let dismissButton: PaywallButtonModel
     public let paywallButton: PaywallButtonModel
-    public let legalLinks: [LegalLink]?
+    public let legalTextArea: LegalTextArea?
     
     public init(
         mainIcon: PaywallIcon? = nil,
@@ -24,16 +25,18 @@ public struct PaywallModel: Hashable {
         features: [Feature],
         featureIcon: PaywallIcon? = nil,
         price: String,
+        dismissButton: PaywallButtonModel,
         paywallButton: PaywallButtonModel,
-        legalLinks: [LegalLink]? = nil
+        legalTextArea: LegalTextArea? = nil
     ) {
         self.mainIcon = mainIcon
         self.title = title
         self.subtitle = subtitle
         self.features = features
         self.featureIcon = featureIcon
+        self.dismissButton = dismissButton
         self.paywallButton = paywallButton
-        self.legalLinks = legalLinks
+        self.legalTextArea = legalTextArea
     }
     
     public var featureMessages: [String] {
@@ -49,8 +52,9 @@ public struct PaywallModel: Hashable {
         lhs.subtitle == rhs.subtitle &&
         lhs.features == rhs.features &&
         lhs.featureIcon == rhs.featureIcon &&
+        lhs.dismissButton == rhs.dismissButton &&
         lhs.paywallButton == rhs.paywallButton &&
-        lhs.legalLinks == rhs.legalLinks
+        lhs.legalTextArea == rhs.legalTextArea
     }
     
     public func hash(into hasher: inout Hasher) {
@@ -59,8 +63,9 @@ public struct PaywallModel: Hashable {
         hasher.combine(subtitle)
         hasher.combine(features)
         hasher.combine(featureIcon)
+        hasher.combine(dismissButton)
         hasher.combine(paywallButton)
-        hasher.combine(legalLinks)
+        hasher.combine(legalTextArea)
     }
 }
 
@@ -77,12 +82,15 @@ public extension PaywallModel {
                 Feature(title: "Multi-device Sync", description: "Sync your data across multiple devices", price: "$1.00/month")
             ],
             price: "$4.99/month",
+            dismissButton: PaywallButtonModel(title: "", backgroundColor: .blue, foregroundColor: .white),
             paywallButton: PaywallButtonModel(title: "Get Premium", backgroundColor: .blue, foregroundColor: .white),
-            legalLinks: [
-                .init(title: "Terms", url: URL(string: "https://example.com/terms")!),
-                .init(title: "Privacy", url: URL(string: "https://example.com/privacy")!),
-                .init(title: "License", url: URL(string: "https://example.com/license")!)
-            ]
+            legalTextArea: LegalTextArea(
+                legalText: "By clicking \"Try Now\" you agree to our Terms of Use and Privacy Policy. We do not sell or share your personal data. You can turn off auto renewal at any time. Check Promotion Terms and Conditions.",
+                legalLinks: [
+                    .init(title: "Terms of Use", url: "https://example.com/terms"),
+                    .init(title: "Privacy Policy", url: "https://example.com/privacy"),
+                    .init(title: "Promotion Terms and Conditions.", url:  "https://example.com/license")]
+            )
         )
     }
     
@@ -102,12 +110,15 @@ public extension PaywallModel {
             ],
             featureIcon: PaywallIcon(name: "checkmark", color: .purple),
             price: "$4.99/month",
+            dismissButton: PaywallButtonModel(title: "", backgroundColor: .purple, foregroundColor: .white),
             paywallButton: PaywallButtonModel(title: "Start Free Trial", backgroundColor: .purple, foregroundColor: .white, cornerRadius: 12),
-            legalLinks: [
-                .init(title: "Terms", url: URL(string: "https://example.com/terms")!),
-                .init(title: "Privacy", url: URL(string: "https://example.com/privacy")!),
-                .init(title: "License", url: URL(string: "https://example.com/license")!)
-            ]
+            legalTextArea: LegalTextArea(
+                legalText: "By clicking \"Try Now\" you agree to our Terms of Use and Privacy Policy. We do not sell or share your personal data. You can turn off auto renewal at any time. Check Promotion Terms and Conditions.",
+                legalLinks: [
+                    .init(title: "Terms of Use", url: "https://example.com/terms"),
+                    .init(title: "Privacy Policy", url: "https://example.com/privacy"),
+                    .init(title: "Promotion Terms and Conditions.", url:  "https://example.com/license")]
+            )
         )
     }
     
@@ -122,12 +133,36 @@ public extension PaywallModel {
                 Feature(title: "Multi-device Sync", description: "Sync your data across multiple devices", price: "$1.00/month")
             ],
             price: "$4.99/month",
+            dismissButton: PaywallButtonModel(title: "", backgroundColor: .gray, foregroundColor: .white),
             paywallButton: PaywallButtonModel(title: "Confirm", backgroundColor: .blue, foregroundColor: .white),
-            legalLinks: [
-                .init(title: "Terms", url: URL(string: "https://example.com/terms")!),
-                .init(title: "Privacy", url: URL(string: "https://example.com/privacy")!),
-                .init(title: "License", url: URL(string: "https://example.com/license")!)
-            ]
+            legalTextArea: LegalTextArea(
+                legalText: "By clicking \"Try Now\" you agree to our Terms of Use and Privacy Policy. We do not sell or share your personal data. You can turn off auto renewal at any time. Check Promotion Terms and Conditions.",
+                legalLinks: [
+                    .init(title: "Terms of Use", url: "https://example.com/terms"),
+                    .init(title: "Privacy Policy", url: "https://example.com/privacy"),
+                    .init(title: "Promotion Terms and Conditions.", url:  "https://example.com/license")]
+            )
+        )
+    }
+    
+    static var mockBold: PaywallModel {
+        PaywallModel(
+            mainIcon: PaywallIcon(name: "music.note.tv", color: .blue),
+            title: "1 Month Free Trial",
+            subtitle: "Unlimited Access to 100 Million Songs",
+            features: [
+                Feature(title: "Unlimited Access to 100 Million Songs", description: "There's nothing between you and your favorite music", price: "12.99/month"),
+            ],
+            price: "$12.99/month",
+            dismissButton: PaywallButtonModel(title: "", backgroundColor: .clear, foregroundColor: .white),
+            paywallButton: PaywallButtonModel(title: "Try now", backgroundColor: .yellow, foregroundColor: .black, cornerRadius: 8),
+            legalTextArea: LegalTextArea(
+                legalText: "By clicking \"Try Now\" you agree to our Terms of Use and Privacy Policy. We do not sell or share your personal data. You can turn off auto renewal at any time. Check Promotion Terms and Conditions.",
+                legalLinks: [
+                    .init(title: "Terms of Use", url: "https://example.com/terms"),
+                    .init(title: "Privacy Policy", url: "https://example.com/privacy"),
+                    .init(title: "Promotion Terms and Conditions.", url:  "https://example.com/license")]
+            )
         )
     }
 }
