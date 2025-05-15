@@ -8,7 +8,10 @@
 import SwiftUI
 
 public enum PaywallType: String, CaseIterable {
-    case classic, modern, minimalist, bold, imageHeavy, animationDriven, testimonialBased, gradientStyle, fullScreen, splitLayout
+    case classic, modern, minimalist, bold
+    
+    // TODO: Will be implemented.
+    //imageHeavy, animationDriven, testimonialBased, gradientStyle, fullScreen, splitLayout
 }
 
 public struct EMPaywallView: View {
