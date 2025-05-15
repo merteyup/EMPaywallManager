@@ -24,7 +24,6 @@ public struct PaywallModel: Hashable {
         subtitle: String,
         features: [Feature],
         featureIcon: PaywallIcon? = nil,
-        price: String,
         dismissButton: PaywallButtonModel,
         paywallButton: PaywallButtonModel,
         legalTextArea: LegalTextArea? = nil
@@ -81,7 +80,6 @@ public extension PaywallModel {
                 Feature(title: "AI Suggestions", description: "Smart suggestions powered by AI", price: "$1.50/month"),
                 Feature(title: "Multi-device Sync", description: "Sync your data across multiple devices", price: "$1.00/month")
             ],
-            price: "$4.99/month",
             dismissButton: PaywallButtonModel(title: "", backgroundColor: .blue, foregroundColor: .white),
             paywallButton: PaywallButtonModel(title: "Get Premium", backgroundColor: .blue, foregroundColor: .white),
             legalTextArea: LegalTextArea(
@@ -109,7 +107,6 @@ public extension PaywallModel {
                 Feature(title: "Add your friends", description: "If you want, you can sync your friends", price: "$1.00/month"),
             ],
             featureIcon: PaywallIcon(name: "checkmark", color: .purple),
-            price: "$4.99/month",
             dismissButton: PaywallButtonModel(title: "", backgroundColor: .purple, foregroundColor: .white),
             paywallButton: PaywallButtonModel(title: "Start Free Trial", backgroundColor: .purple, foregroundColor: .white, cornerRadius: 12),
             legalTextArea: LegalTextArea(
@@ -132,7 +129,6 @@ public extension PaywallModel {
                 Feature(title: "AI Suggestions", description: "Smart suggestions powered by AI", price: "$1.50/month"),
                 Feature(title: "Multi-device Sync", description: "Sync your data across multiple devices", price: "$1.00/month")
             ],
-            price: "$4.99/month",
             dismissButton: PaywallButtonModel(title: "", backgroundColor: .gray, foregroundColor: .white),
             paywallButton: PaywallButtonModel(title: "Confirm", backgroundColor: .blue, foregroundColor: .white),
             legalTextArea: LegalTextArea(
@@ -153,7 +149,6 @@ public extension PaywallModel {
             features: [
                 Feature(title: "Unlimited Access to 100 Million Songs", description: "There's nothing between you and your favorite music", price: "12.99/month"),
             ],
-            price: "$12.99/month",
             dismissButton: PaywallButtonModel(title: "", backgroundColor: .clear, foregroundColor: .white),
             paywallButton: PaywallButtonModel(title: "Try now", backgroundColor: .yellow, foregroundColor: .black, cornerRadius: 8),
             legalTextArea: LegalTextArea(
