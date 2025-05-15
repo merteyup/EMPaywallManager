@@ -29,10 +29,8 @@ public struct MinimalistPaywallView: PaywallViewProtocol {
                         .foregroundColor(.primary)
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Button {
+                    DismissButton(model: viewModel.model.dismissButton) {
                         viewModel.onDismiss?()
-                    } label: {
-                        Image(systemName: "xmark")
                     }
                 }
                 

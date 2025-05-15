@@ -23,20 +23,37 @@ public struct DismissButtonModel: Hashable {
         case xmarkOctagonFill = "xmark.octagon.fill"
     }
     
-    public let iconName: String?
+    public let iconName: String
+    public let alignment: Alignment
     public let backgroundColor: Color?
     public let foregroundColor: Color?
     public let cornerRadius: CGFloat?
     
     public init(
         iconName: IconName = .xmark,
+        alignment: Alignment = .trailing,
         backgroundColor: Color? = .white,
         foregroundColor: Color? = .black,
         cornerRadius: CGFloat? = nil
     ) {
         self.iconName = iconName.rawValue
+        self.alignment = alignment
         self.backgroundColor = backgroundColor
         self.foregroundColor = foregroundColor
         self.cornerRadius = cornerRadius
+    }
+    
+    public static func == (lhs: DismissButtonModel, rhs: DismissButtonModel) -> Bool {
+        return lhs.iconName == rhs.iconName &&
+        lhs.backgroundColor == rhs.backgroundColor &&
+        lhs.foregroundColor == rhs.foregroundColor &&
+        lhs.cornerRadius == rhs.cornerRadius
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(iconName)
+        hasher.combine(backgroundColor)
+        hasher.combine(foregroundColor)
+        hasher.combine(cornerRadius)
     }
 }

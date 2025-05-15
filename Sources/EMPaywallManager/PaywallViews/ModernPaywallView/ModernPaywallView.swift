@@ -23,10 +23,9 @@ public struct ModernPaywallView: PaywallViewProtocol {
             }
             
             VStack(spacing: 16) {
-                DismissButton(alignment: .trailing,
-                              backgroundColor: .secondary,
-                              onDismiss: viewModel.onDismiss)
-                .frame(maxWidth: .infinity,
+                DismissButton(model: viewModel.model.dismissButton) {
+                    viewModel.onDismiss?()
+                }.frame(maxWidth: .infinity,
                        alignment: .trailing)
                 .padding(.top, 16)
                 

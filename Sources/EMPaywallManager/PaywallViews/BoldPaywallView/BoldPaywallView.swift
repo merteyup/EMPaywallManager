@@ -29,7 +29,7 @@ public struct BoldPaywallView: PaywallViewProtocol {
             }
            
             VStack(alignment: .leading, spacing: 0) {
-                DismissButton(alignment: .trailing, backgroundColor: .clear) {
+                DismissButton(model: viewModel.model.dismissButton) {
                     viewModel.onDismiss?()
                 }
 
@@ -67,6 +67,7 @@ public struct BoldPaywallView: PaywallViewProtocol {
                 NoThanksButton {
                     viewModel.onDismiss?()
                 }
+                .frame(maxWidth: .infinity, alignment: .center)
 
                 if let legalTextArea = viewModel.model.legalTextArea {
                     RichTextLinkView(legalTextArea: legalTextArea)
