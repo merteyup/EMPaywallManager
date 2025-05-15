@@ -9,34 +9,43 @@ import SwiftUI
 
 public struct ClassicPaywallView: PaywallViewProtocol {
     @StateObject public var viewModel: ClassicPaywallViewModel
-
+    
     public init(viewModel: ClassicPaywallViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-
+    
     public var body: some View {
-        VStack(spacing: 16) {
-            DismissButton(alignment: .leading,
-                          onDismiss: viewModel.onDismiss)
+        
+        ZStack {
+            
+            if let background = viewModel.mainBackground {
+                background
+            }
+            
+            VStack(spacing: 16) {
+                DismissButton(alignment: .leading,
+                              onDismiss: viewModel.onDismiss)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 16)
-
-            Spacer()
-
-            IconWithTitleView(model: viewModel.model)
-
-            PaywallContentView(model: viewModel.model)
-
-            Spacer()
-
-            PaywallFooterView(model: viewModel.model,
-                              onSubscribe: viewModel.onSubscribe,
-                              onRestore: viewModel.onRestore,
-                              onDismiss: viewModel.onDismiss,
-                              selectedFeature: $viewModel.selectedFeature)
+                
+                Spacer()
+                
+                IconWithTitleView(model: viewModel.model)
+                
+                PaywallContentView(model: viewModel.model)
+                
+                Spacer()
+                
+                PaywallFooterView(model: viewModel.model,
+                                  onSubscribe: viewModel.onSubscribe,
+                                  onRestore: viewModel.onRestore,
+                                  onDismiss: viewModel.onDismiss,
+                                  selectedFeature: $viewModel.selectedFeature)
+            }
+            .padding()
         }
-        .padding()
     }
+    
 }
 
 #Preview {

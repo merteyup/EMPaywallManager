@@ -10,50 +10,57 @@ import SwiftUI
 
 public struct MinimalistPaywallView: PaywallViewProtocol {
     @StateObject public var viewModel: MinimalistPaywallViewModel
-
+    
     public init(viewModel: MinimalistPaywallViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-
+    
     public var body: some View {
-        VStack {
-            HStack {
-                Text(viewModel.model.title)
-                    .font(.title.weight(.bold))
+        ZStack {
+            
+            if let background = viewModel.mainBackground {
+                background
+            }
+            
+            VStack {
+                HStack {
+                    Text(viewModel.model.title)
+                        .font(.title.weight(.bold))
+                        .foregroundColor(.primary)
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Button {
+                        viewModel.onDismiss?()
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+                }
+                
+                Divider()
+                
+                Text(viewModel.model.subtitle)
+                    .font(.largeTitle.weight(.bold))
                     .foregroundColor(.primary)
                     .padding()
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Button {
-                    viewModel.onDismiss?()
-                } label: {
-                    Image(systemName: "xmark")
-                }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                
+                SubscriptionView(model: viewModel.model, selectedFeature: $viewModel.selectedFeature)
+                    .padding(.top, 20)
+                
+                Spacer()
+                
+                ActionButtonsView(
+                    model: viewModel.model,
+                    onSubscribe: viewModel.onSubscribe,
+                    onRestore: viewModel.onRestore,
+                    onDismiss: viewModel.onDismiss,
+                    selectedFeature: $viewModel.selectedFeature
+                )
+                .padding(.top, 20)
             }
-
-            Divider()
-
-            Text(viewModel.model.subtitle)
-                .font(.largeTitle.weight(.bold))
-                .foregroundColor(.primary)
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .center)
-
-            SubscriptionView(model: viewModel.model, selectedFeature: $viewModel.selectedFeature)
-                .padding(.top, 20)
-
-            Spacer()
-
-            ActionButtonsView(
-                model: viewModel.model,
-                onSubscribe: viewModel.onSubscribe,
-                onRestore: viewModel.onRestore,
-                onDismiss: viewModel.onDismiss,
-                selectedFeature: $viewModel.selectedFeature
-            )
-                .padding(.top, 20)
+            .padding()
+            .frame(maxHeight: .infinity)
         }
-        .padding()
-        .frame(maxHeight: .infinity)
     }
 }
 
@@ -141,7 +148,7 @@ struct ActionButtonsView: View {
     var onRestore: (() -> Void)?
     var onDismiss: (() -> Void)?
     @Binding var selectedFeature: Feature
-
+    
     var body: some View {
         HStack(spacing: 20) {
             Button(action: {

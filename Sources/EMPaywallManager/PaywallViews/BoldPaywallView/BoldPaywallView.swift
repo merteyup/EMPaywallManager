@@ -18,11 +18,16 @@ public struct BoldPaywallView: PaywallViewProtocol {
 
     public var body: some View {
         ZStack {
-            LinearGradient(colors: [.yellow, .orange, .red, Color("#252378")],
-                           startPoint: .topTrailing,
-                           endPoint: .bottomLeading)
+            
+            if let background = viewModel.mainBackground {
+                background
+            } else {
+                LinearGradient(colors: [.yellow, .orange, .red, Color("#252378")],
+                               startPoint: .topTrailing,
+                               endPoint: .bottomLeading)
                 .ignoresSafeArea()
-
+            }
+           
             VStack(alignment: .leading, spacing: 0) {
                 DismissButton(alignment: .trailing, backgroundColor: .clear) {
                     viewModel.onDismiss?()
