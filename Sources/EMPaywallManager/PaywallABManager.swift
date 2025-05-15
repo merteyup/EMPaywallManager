@@ -35,6 +35,7 @@ UserDefaults.standard.removeObject(forKey: key)
               let type = PaywallType(rawValue: raw) else {
             fatalError("PaywallABManager not configured. Call configure() before using.")
         }
+        print("Assigned PaywallType is: \(type.rawValue)")
         return type
     }
 }
