@@ -61,6 +61,7 @@ public struct BoldPaywallView: PaywallViewProtocol {
                     .padding(.bottom, LayoutConstants.padding)
 
                 PaywallButton(with: viewModel.model.paywallButton) {
+                    print("🔥 Button tapped: feature = \(viewModel.selectedFeature.title)")
                     viewModel.onSubscribe?(viewModel.selectedFeature)
                 }
 

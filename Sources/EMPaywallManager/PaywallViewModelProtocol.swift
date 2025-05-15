@@ -10,7 +10,9 @@ import SwiftUI
 public protocol PaywallViewModelProtocol: ObservableObject {
     var model: PaywallModel { get }
     var selectedFeature: Feature { get set }
+
     var onSubscribe: ((Feature) -> Void)? { get }
     var onRestore: (() -> Void)? { get }
     var onDismiss: (() -> Void)? { get }
+    var onFeatureSelect: ((Feature) -> Void)? { get }
 }

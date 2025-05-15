@@ -42,7 +42,7 @@ public struct MinimalistPaywallView: PaywallViewProtocol {
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .center)
                 
-                SubscriptionView(model: viewModel.model, selectedFeature: $viewModel.selectedFeature)
+                SubscriptionView(viewModel: viewModel, selectedFeature: $viewModel.selectedFeature)
                     .padding(.top, 20)
                 
                 Spacer()
@@ -65,21 +65,23 @@ public struct MinimalistPaywallView: PaywallViewProtocol {
 
 struct SubscriptionView: View {
     @State private var selectedOptionIndex: Int = 0
-    var model: PaywallModel
+    @ObservedObject var viewModel: MinimalistPaywallViewModel
     @Binding var selectedFeature: Feature
+    
     
     var body: some View {
         VStack(spacing: 20) {
-            ForEach(model.features.indices, id: \.self) { index in
+            ForEach(viewModel.model.features.indices, id: \.self) { index in
                 SubscriptionOption(
                     index: index,
-                    title: model.features[index].title,
-                    price: model.features[index].price,
-                    description: model.features[index].description,
+                    title: viewModel.model.features[index].title,
+                    price: viewModel.model.features[index].price,
+                    description: viewModel.model.features[index].description,
                     isSelected: selectedOptionIndex == index,
                     onTap: {
                         selectedOptionIndex = index
-                        selectedFeature = self.model.features[index]
+                        selectedFeature = self.viewModel.model.features[index]
+                        viewModel.onFeatureSelect?(selectedFeature)
                     }
                 )
             }
