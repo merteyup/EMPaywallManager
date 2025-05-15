@@ -22,7 +22,7 @@ public struct BoldPaywallView: PaywallViewProtocol {
             if let background = viewModel.mainBackground {
                 background
             } else {
-                LinearGradient(colors: [.yellow, .orange, .red, Color("#252378")],
+                LinearGradient(colors: [.yellow, .orange, .red],
                                startPoint: .topTrailing,
                                endPoint: .bottomLeading)
                 .ignoresSafeArea()
