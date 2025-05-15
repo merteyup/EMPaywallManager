@@ -17,25 +17,30 @@ public final class PaywallABManager {
     private init() {}
 
     public func configure(variants: [PaywallType]) {
-#if DEBUG
-UserDefaults.standard.removeObject(forKey: key)
-#endif
         precondition(variants.count == 2, "Exactly two variants are required for A/B testing.")
         availableVariants = variants
 
-        if UserDefaults.standard.string(forKey: key) == nil {
-            let random = variants.randomElement()!
-            UserDefaults.standard.set(random.rawValue, forKey: key)
-            print("✅ Assigned variant: \(random.rawValue)")
+#if DEBUG
+        UserDefaults.standard.removeObject(forKey: key)
+#endif
+
+        if UserDefaults.standard.string(forKey: key) == nil,
+           let selected = variants.randomElement() {
+            UserDefaults.standard.set(selected.rawValue, forKey: key)
+            debugPrint("✅ Paywall variant assigned: \(selected.rawValue)")
         }
     }
 
     public var assignedType: PaywallType {
-        guard let raw = UserDefaults.standard.string(forKey: key),
-              let type = PaywallType(rawValue: raw) else {
-            fatalError("PaywallABManager not configured. Call configure() before using.")
+        guard
+            let rawValue = UserDefaults.standard.string(forKey: key),
+            let type = PaywallType(rawValue: rawValue)
+        else {
+            fatalError("""
+            ⚠️ PaywallABManager not configured.
+            Make sure to call `PaywallABManager.shared.configure(...)` early in your App lifecycle (e.g., in App.init).
+            """)
         }
-        print("Assigned PaywallType is: \(type.rawValue)")
         return type
     }
 }
