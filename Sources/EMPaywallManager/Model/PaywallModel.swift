@@ -98,7 +98,7 @@ public extension PaywallModel {
                     price: "$1.00/month"
                 )
             ],
-            dismissButton: DismissButtonModel(backgroundColor: .blue),
+            dismissButton: DismissButtonModel(iconName: .xmarkCircleFill, backgroundColor: .blue),
             paywallButton: PaywallButtonModel(title: "Get Premium"),
             legalTextArea: LegalTextArea(
                 legalText: mockLegalText,
