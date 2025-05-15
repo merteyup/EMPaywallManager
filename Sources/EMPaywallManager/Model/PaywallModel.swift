@@ -14,7 +14,7 @@ public struct PaywallModel: Hashable {
     public let subtitle: String
     public let features: [Feature]
     public let featureIcon: PaywallIcon?
-    public let dismissButton: PaywallButtonModel
+    public let dismissButton: DismissButtonModel
     public let paywallButton: PaywallButtonModel
     public let legalTextArea: LegalTextArea?
     
@@ -24,7 +24,7 @@ public struct PaywallModel: Hashable {
         subtitle: String,
         features: [Feature],
         featureIcon: PaywallIcon? = nil,
-        dismissButton: PaywallButtonModel,
+        dismissButton: DismissButtonModel,
         paywallButton: PaywallButtonModel,
         legalTextArea: LegalTextArea? = nil
     ) {
