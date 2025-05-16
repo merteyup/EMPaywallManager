@@ -35,7 +35,6 @@ final public class BoldPaywallViewModel: PaywallViewModelProtocol {
         self.onDismiss = onDismiss
         self.onFeatureSelect = onFeatureSelect
         self.selectedFeature = model.features.first ?? Feature.fallbackWithLogging(reason: "BoldPaywallView: No features available")
-        print("⚠️ BoldPaywallViewModel onSubscribe assigned: \(onSubscribe != nil)")
     }
     
     var iconName: String? {

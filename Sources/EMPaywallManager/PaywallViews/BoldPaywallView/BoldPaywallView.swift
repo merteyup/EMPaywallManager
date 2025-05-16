@@ -32,6 +32,8 @@ public struct BoldPaywallView: PaywallViewProtocol {
                 DismissButton(model: viewModel.model.dismissButton) {
                     viewModel.onDismiss?()
                 }
+                .padding(.top, LayoutConstants.padding)
+                .padding(.trailing, LayoutConstants.padding)
 
                 Spacer()
 
@@ -64,6 +66,8 @@ public struct BoldPaywallView: PaywallViewProtocol {
                     print("🔥 Button tapped: feature = \(viewModel.selectedFeature.title)")
                     viewModel.onSubscribe?(viewModel.selectedFeature)
                 }
+                .padding(.horizontal, LayoutConstants.padding)
+                .padding(.bottom, LayoutConstants.padding)
 
                 NoThanksButton {
                     viewModel.onDismiss?()
