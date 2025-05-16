@@ -20,17 +20,20 @@ struct PaywallFooterView: View {
                 onSubscribe?(selectedFeature)
             }
             
-            Button("Restore Purchases") {
-                onRestore?()
-            }
-            .font(.footnote)
-            .foregroundColor(.blue)
-            
             Button("Not now") {
                 onDismiss?()
             }
             .font(.footnote)
             .foregroundColor(.secondary)
+            .padding(.top, 16)
+            
+            Button("Restore Purchases") {
+                onRestore?()
+            }
+            .font(.footnote)
+            .foregroundColor(.blue)
+            .padding(.top, 40)
+           
             
             if let legalTextArea = model.legalTextArea,
                let links = legalTextArea.legalLinks {
