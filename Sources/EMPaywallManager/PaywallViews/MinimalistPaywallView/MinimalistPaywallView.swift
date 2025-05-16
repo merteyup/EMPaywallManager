@@ -35,6 +35,8 @@ public struct MinimalistPaywallView: PaywallViewProtocol {
                 
                 Divider()
                 
+                Spacer()
+                
                 Text(viewModel.model.subtitle)
                     .font(.largeTitle.weight(.bold))
                     .foregroundColor(.primary)
@@ -80,7 +82,6 @@ struct SubscriptionView: View {
                     onTap: {
                         selectedOptionIndex = index
                         selectedFeature = self.viewModel.model.features[index]
-                        viewModel.onFeatureSelect?(selectedFeature)
                     }
                 )
             }
@@ -127,9 +128,9 @@ struct SubscriptionOption: View {
                 }
                 .padding()
                 .background(Color.primary.opacity(0.03))
-                .cornerRadius(10)
+                .cornerRadius(15)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: 15)
                         .stroke(Color.blue.opacity(0.3), lineWidth: 1)
                 )
             }
