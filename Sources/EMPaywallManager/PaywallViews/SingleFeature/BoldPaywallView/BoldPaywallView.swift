@@ -49,25 +49,24 @@ public struct BoldPaywallView: PaywallViewProtocol {
                     .font(.largeTitle.weight(.black))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, LayoutConstants.padding)
-                    .padding(.bottom, LayoutConstants.padding)
+                    .padding(.bottom, LayoutConstants.smallPadding)
 
                 Text(viewModel.model.subtitle)
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, LayoutConstants.padding)
-                    .padding(.bottom, LayoutConstants.smallPadding)
+                    .padding(.bottom, LayoutConstants.padding)
 
                 Text(viewModel.priceText)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, LayoutConstants.padding)
-                    .padding(.bottom, LayoutConstants.padding)
+                    .padding(.bottom, LayoutConstants.highPadding)
 
                 PaywallButton(with: viewModel.model.paywallButton) {
-                    print("🔥 Button tapped: feature = \(viewModel.selectedFeature.title)")
                     viewModel.onSubscribe?(viewModel.selectedFeature)
                 }
                 .padding(.horizontal, LayoutConstants.padding)
-                .padding(.bottom, LayoutConstants.padding)
+                .padding(.bottom, LayoutConstants.smallPadding)
 
                 NoThanksButton {
                     viewModel.onDismiss?()
