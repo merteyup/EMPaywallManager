@@ -15,39 +15,38 @@ public struct ClassicPaywallView: PaywallViewProtocol {
     }
     
     public var body: some View {
-        
-        ZStack {
-            
-            if let background = viewModel.mainBackground {
-                background
-            }
-            
-            VStack(spacing: 16) {
-                DismissButton(model: viewModel.model.dismissButton) {
-                    viewModel.onDismiss?()
+        ScrollView {
+            ZStack {
+                if let background = viewModel.mainBackground {
+                    background
                 }
                 
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, 16)
-                
-                Spacer()
-                
-                IconWithTitleView(model: viewModel.model)
-                
-                PaywallContentView(model: viewModel.model)
-                
-                Spacer()
-                
-                PaywallFooterView(model: viewModel.model,
-                                  onSubscribe: viewModel.onSubscribe,
-                                  onRestore: viewModel.onRestore,
-                                  onDismiss: viewModel.onDismiss,
-                                  selectedFeature: $viewModel.selectedFeature)
+                VStack(spacing: 16) {
+                    DismissButton(model: viewModel.model.dismissButton) {
+                        viewModel.onDismiss?()
+                    }
+                    
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, 16)
+                    
+                    Spacer()
+                    
+                    IconWithTitleView(model: viewModel.model)
+                    
+                    PaywallContentView(model: viewModel.model)
+                    
+                    Spacer()
+                    
+                    PaywallFooterView(model: viewModel.model,
+                                      onSubscribe: viewModel.onSubscribe,
+                                      onRestore: viewModel.onRestore,
+                                      onDismiss: viewModel.onDismiss,
+                                      selectedFeature: $viewModel.selectedFeature)
+                }
+                .padding()
             }
-            .padding()
         }
     }
-    
 }
 
 #Preview {

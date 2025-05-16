@@ -120,8 +120,6 @@ public extension PaywallModel {
                                    "And even one more",
                                    "And even one more",
                                    "And even one more",
-                                   "And even one more",
-                                   "And even one more",
                                    "And even one more"],
                     price: "$2.00/month",
                     iconName: "checkmark"

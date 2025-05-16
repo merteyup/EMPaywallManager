@@ -16,37 +16,34 @@ public struct ModernPaywallView: PaywallViewProtocol {
     
     public var body: some View {
         
-        ZStack {
-            
-            if let background = viewModel.mainBackground {
-                background
+        ScrollView {
+            ZStack {
+                if let background = viewModel.mainBackground {
+                    background
+                }
+                
+                VStack(spacing: 16) {
+                    DismissButton(model: viewModel.model.dismissButton) {
+                        viewModel.onDismiss?()
+                    }.frame(maxWidth: .infinity,
+                            alignment: .trailing)
+                    .padding(.top, 16)
+                    
+                    Spacer()
+                    
+                    IconWithTitleView(model: viewModel.model)
+                    
+                    PaywallContentView(model: viewModel.model)
+                                        
+                    PaywallFooterView(model: viewModel.model,
+                                      onSubscribe: viewModel.onSubscribe,
+                                      onRestore: viewModel.onRestore,
+                                      onDismiss: viewModel.onDismiss,
+                                      selectedFeature: $viewModel.selectedFeature)
+                    Spacer()
+                }
+                .padding()
             }
-            
-            VStack(spacing: 16) {
-                DismissButton(model: viewModel.model.dismissButton) {
-                    viewModel.onDismiss?()
-                }.frame(maxWidth: .infinity,
-                       alignment: .trailing)
-                .padding(.top, 16)
-                
-                Spacer()
-                
-                IconWithTitleView(model: viewModel.model)
-                
-                Spacer()
-                Spacer()
-                
-                PaywallContentView(model: viewModel.model)
-                
-                Spacer()
-                
-                PaywallFooterView(model: viewModel.model,
-                                  onSubscribe: viewModel.onSubscribe,
-                                  onRestore: viewModel.onRestore,
-                                  onDismiss: viewModel.onDismiss,
-                                  selectedFeature: $viewModel.selectedFeature)
-            }
-            .padding()
         }
     }
 }

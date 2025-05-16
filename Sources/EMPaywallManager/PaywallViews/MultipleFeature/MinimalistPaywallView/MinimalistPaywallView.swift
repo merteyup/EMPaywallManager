@@ -16,49 +16,50 @@ public struct MinimalistPaywallView: PaywallViewProtocol {
     }
     
     public var body: some View {
-        ZStack {
-            
-            if let background = viewModel.mainBackground {
-                background
-            }
-            
-            VStack {
-                HStack(alignment: .bottom) {
-                    Text(viewModel.model.title)
-                        .font(.title.weight(.bold))
-                        .foregroundColor(.primary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    DismissButton(model: viewModel.model.dismissButton) {
-                        viewModel.onDismiss?()
-                    }
+        ScrollView {
+            ZStack {
+                if let background = viewModel.mainBackground {
+                    background
                 }
                 
-                Divider()
-                
-                Spacer()
-                
-                Text(viewModel.model.subtitle)
-                    .font(.largeTitle.weight(.bold))
-                    .foregroundColor(.primary)
-                    .padding()
-                    .frame(maxWidth: .infinity, alignment: .center)
-                
-                SubscriptionView(viewModel: viewModel, selectedFeature: $viewModel.selectedFeature)
+                VStack {
+                    HStack(alignment: .bottom) {
+                        Text(viewModel.model.title)
+                            .font(.title.weight(.bold))
+                            .foregroundColor(.primary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        DismissButton(model: viewModel.model.dismissButton) {
+                            viewModel.onDismiss?()
+                        }
+                    }
+                    
+                    Divider()
+                    
+                    Spacer()
+                    
+                    Text(viewModel.model.subtitle)
+                        .font(.largeTitle.weight(.bold))
+                        .foregroundColor(.primary)
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    
+                    SubscriptionView(viewModel: viewModel, selectedFeature: $viewModel.selectedFeature)
+                        .padding(.top, 20)
+                    
+                    Spacer()
+                    
+                    ActionButtonsView(
+                        model: viewModel.model,
+                        onSubscribe: viewModel.onSubscribe,
+                        onRestore: viewModel.onRestore,
+                        onDismiss: viewModel.onDismiss,
+                        selectedFeature: $viewModel.selectedFeature
+                    )
                     .padding(.top, 20)
-                
-                Spacer()
-                
-                ActionButtonsView(
-                    model: viewModel.model,
-                    onSubscribe: viewModel.onSubscribe,
-                    onRestore: viewModel.onRestore,
-                    onDismiss: viewModel.onDismiss,
-                    selectedFeature: $viewModel.selectedFeature
-                )
-                .padding(.top, 20)
+                }
+                .padding()
+                .frame(maxHeight: .infinity)
             }
-            .padding()
-            .frame(maxHeight: .infinity)
         }
     }
 }
