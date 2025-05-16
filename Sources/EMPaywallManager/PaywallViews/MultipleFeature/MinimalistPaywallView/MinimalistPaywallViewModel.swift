@@ -22,7 +22,7 @@ final public class MinimalistPaywallViewModel: ObservableObject, PaywallViewMode
         }
     }
     
-    init(model: PaywallModel,
+    public init(model: PaywallModel,
          mainBackground: AnyView? = nil,
          onSubscribe: ((Feature) -> Void)? = nil,
          onRestore: (() -> Void)? = nil,

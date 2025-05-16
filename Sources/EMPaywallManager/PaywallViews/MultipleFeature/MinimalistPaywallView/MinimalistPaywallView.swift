@@ -77,7 +77,7 @@ struct SubscriptionView: View {
                     index: index,
                     title: viewModel.model.features[index].title,
                     price: viewModel.model.features[index].price,
-                    description: viewModel.model.features[index].description,
+                    descriptions: viewModel.model.features[index].descriptions,
                     isSelected: selectedOptionIndex == index,
                     onTap: {
                         selectedOptionIndex = index
@@ -94,7 +94,7 @@ struct SubscriptionOption: View {
     var index: Int
     var title: String
     var price: String
-    var description: String
+    var descriptions: [String]
     var isSelected: Bool
     var onTap: () -> Void
     
@@ -116,12 +116,15 @@ struct SubscriptionOption: View {
                             .font(.caption)
                             .foregroundColor(.primary)
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.bottom, 2)
                         
-                        Text(description)
-                            .fontWeight(.light)
-                            .font(.caption)
-                            .foregroundColor(.gray)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                        ForEach(descriptions, id: \.self) { description in
+                            Text(description)
+                                .fontWeight(.light)
+                                .font(.caption)
+                                .foregroundColor(.gray)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
                     }
                     
                     Spacer()
