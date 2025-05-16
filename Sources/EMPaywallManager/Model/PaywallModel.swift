@@ -38,13 +38,6 @@ public struct PaywallModel: Hashable {
         self.legalTextArea = legalTextArea
     }
     
-    public var featureMessages: [String] {
-        features.map { feature in
-            let descriptionPart = feature.descriptions.isEmpty ? "" : " - \(feature.descriptions)"
-            return "\(feature.title)\(descriptionPart)"
-        }
-    }
-    
     public static func == (lhs: PaywallModel, rhs: PaywallModel) -> Bool {
         return lhs.mainIcon == rhs.mainIcon &&
         lhs.title == rhs.title &&
@@ -85,7 +78,9 @@ public extension PaywallModel {
                 Feature(
                     id: "1_product_id",
                     title: "Daily Journal Prompts",
-                    descriptions: ["Get daily prompts for your journal"],
+                    descriptions: ["Get daily prompts for your journal",
+                                   "It's an amazing feature so needed one more line",
+                                   "And even one more"],
                     price: "$2.00/month"
                 )
             ],
@@ -119,46 +114,18 @@ public extension PaywallModel {
                 Feature(
                     id: "1_product_id",
                     title: "Daily Journal Prompts",
-                    descriptions: ["Get daily prompts for your journal"],
+                    descriptions: ["Get daily prompts for your journal",
+                                   "It's an amazing feature so needed one more line",
+                                   "And even one more",
+                                   "And even one more",
+                                   "And even one more",
+                                   "And even one more",
+                                   "And even one more",
+                                   "And even one more",
+                                   "And even one more"],
                     price: "$2.00/month",
                     iconName: "checkmark"
-                ),
-                Feature(
-                    id: "2_product_id",
-                    title: "AI Suggestions",
-                    descriptions: ["Smart suggestions powered by AI"],
-                    price: "$1.50/month"
-                ),
-                Feature(
-                    id: "3_product_id",
-                    title: "OpenAI Support",
-                    descriptions: ["Get advices from chatGPT"],
-                    price: "$0.90/month"
-                ),
-                Feature(
-                    id: "4_product_id",
-                    title: "Colorful themes",
-                    descriptions: ["Add some color into your project"],
-                    price: "$1.00/month"
-                ),
-                Feature(
-                    id: "5_product_id",
-                    title: "Auto Readme generator",
-                    descriptions: ["Easy to develop, easy to document"],
-                    price: "$1.00/month"
-                ),
-                Feature(
-                    id: "6_product_id",
-                    title: "Live chat module",
-                    descriptions: ["When you need, real help is just a tap away"],
-                    price: "$1.00/month"
-                ),
-                Feature(
-                    id: "7_product_id",
-                    title: "Add your friends",
-                    descriptions: ["If you want, you can sync your friends"],
-                    price: "$1.00/month"
-                ),
+                )
             ],
             featureIcon: PaywallIcon(name: "checkmark", color: .purple),
             dismissButton: DismissButtonModel(backgroundColor: .purple),
@@ -191,13 +158,16 @@ public extension PaywallModel {
                 Feature(
                     id: "1_product_id",
                     title: "Daily Journal Prompts",
-                    descriptions: ["Get daily prompts for your journal", "It's an amazing feature so needed one more line", "And even one more"],
+                    descriptions: ["Get daily prompts for your journal",
+                                   "It's an amazing feature so needed one more line",
+                                   "And even one more"],
                     price: "$6.00/month"
                 ),
                 Feature(
                     id: "2_product_id",
                     title: "AI Suggestions",
-                    descriptions: ["Smart suggestions powered by AI"],
+                    descriptions: ["Smart suggestions powered by AI",
+                                   "It's an amazing feature so needed one more line"],
                     price: "$1.50/month"
                 ),
                 Feature(
@@ -237,7 +207,9 @@ public extension PaywallModel {
                 Feature(
                     id: "1_product_id",
                     title: "Unlimited Access to 100 Million Songs",
-                    descriptions: ["There's nothing between you and your favorite music"],
+                    descriptions: ["There's nothing between you and your favorite music",
+                                   "It's an amazing feature so needed one more line",
+                                   "And even one more"],
                     price: "12.99/month"
                 ),
             ],
