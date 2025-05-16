@@ -23,10 +23,8 @@ struct DismissButton: View {
                     .background(model.backgroundColor)
                     .clipShape(Circle())
             }
-            .padding()
         }
         .frame(maxWidth: .infinity, alignment: model.alignment)
-        .padding(.top, 16)
     }
 }
 

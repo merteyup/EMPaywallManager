@@ -23,11 +23,10 @@ public struct MinimalistPaywallView: PaywallViewProtocol {
             }
             
             VStack {
-                HStack {
+                HStack(alignment: .bottom) {
                     Text(viewModel.model.title)
                         .font(.title.weight(.bold))
                         .foregroundColor(.primary)
-                        .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
                     DismissButton(model: viewModel.model.dismissButton) {
                         viewModel.onDismiss?()
@@ -165,10 +164,12 @@ struct ActionButtonsView: View {
                             .stroke(Color.blue.opacity(0.3), lineWidth: 1)
                     )
             }
+            .frame(minWidth: 150, maxWidth: .infinity)
             
             PaywallButton(with: model.paywallButton) {
                 onSubscribe?(selectedFeature)
             }
+            .frame(minWidth: 150, maxWidth: .infinity)
         }
         .padding()
     }
