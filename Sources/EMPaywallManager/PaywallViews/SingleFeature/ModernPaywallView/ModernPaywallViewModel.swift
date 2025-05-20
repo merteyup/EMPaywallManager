@@ -21,6 +21,13 @@ final public class ModernPaywallViewModel: ObservableObject, PaywallViewModelPro
             onFeatureSelect?(selectedFeature)
         }
     }
+        
+    struct FeatureStep: Identifiable, Hashable {
+        let id = UUID()
+        let title: String
+        let description: String
+        let icon: String
+    }
     
     public init(model: PaywallModel,
          mainBackground: AnyView? = nil,
@@ -36,4 +43,12 @@ final public class ModernPaywallViewModel: ObservableObject, PaywallViewModelPro
         self.onFeatureSelect = onFeatureSelect
         self.selectedFeature = model.features.first ?? Feature.fallbackWithLogging(reason: "ModernPaywallView: No features available")
     }
+
+    let steps = [
+        FeatureStep(title: "Today", description: "Start your journey", icon: "lock.open.fill"),
+        FeatureStep(title: "In 5 Days", description: "Unlock next steps", icon: "gift.fill"),
+        FeatureStep(title: "In 7 Days", description: "Celebrate your growth", icon: "party.popper.fill")
+    ]
+    
+    let bottomDescriptiveText = "You can cancel your subscription any time you want."
 }

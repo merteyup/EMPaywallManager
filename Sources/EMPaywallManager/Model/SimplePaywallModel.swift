@@ -16,7 +16,7 @@ public struct SimplePaywallModel {
 
     public init(
         icon: String = "star.fill",
-        title: String = "Upgrade to Pro",
+        title: String = "Become a Premium",
         subtitle: String = "Access all premium features",
         feature: Feature,
         paywallButton: PaywallButtonModel? = nil

@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// TODO: Design improvements will be provided in the future.
 
 public struct ModernPaywallView: PaywallViewProtocol {
     @StateObject public var viewModel: ModernPaywallViewModel
@@ -31,7 +30,6 @@ public struct ModernPaywallView: PaywallViewProtocol {
                             alignment: .trailing)
                     .padding(.top, 16)
                     
-                    Spacer()
                     
                     if let icon = viewModel.model.mainIcon {
                         Image(systemName: icon.name)
@@ -39,16 +37,16 @@ public struct ModernPaywallView: PaywallViewProtocol {
                             .foregroundStyle(.purple)
                     }
                     
-                    Spacer()
+                    Text(viewModel.model.title)
+                        .font(.title.bold())
+                        .padding(.bottom, LayoutConstants.padding)
                     
-                    let descriptions = (viewModel.model.features.first?.descriptions).flatMap { $0.isEmpty ? nil : $0 } ?? Feature.defaultDescriptions
-                    let titles = ["Today", "In 5 Days", "In 7 Days"]
-
-                    ForEach(Array(zip(titles, descriptions)), id: \.1) { title, description in
+                    ForEach(viewModel.steps, id: \.self) { step in
                         HStack(alignment: .top, spacing: 12) {
                             VStack {
-                                Image(systemName: "lock")
+                                Image(systemName: step.icon)
                                     .font(.system(size: 32))
+                                    .frame(maxWidth: 45, maxHeight: 45)
                                     .foregroundStyle(.purple)
                                 Rectangle()
                                     .frame(width: 2, height: 30)
@@ -56,18 +54,16 @@ public struct ModernPaywallView: PaywallViewProtocol {
                             }
                             
                             VStack(alignment: .leading, spacing: 4) {
-                                Text(title)
+                                Text(step.title)
                                     .font(.title2.bold())
                                     .foregroundStyle(.purple)
-                                Text(description)
+                                Text(step.description)
                                     .font(.subheadline)
                             }
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, LayoutConstants.padding)
                     }
-                    
-                    Spacer()
                     
                     PaywallButton(
                         with: viewModel.model.paywallButton ?? .init(
@@ -81,14 +77,15 @@ public struct ModernPaywallView: PaywallViewProtocol {
                             viewModel.selectedFeature
                         )
                     }
-                    .padding(.bottom, LayoutConstants.padding)
                     
-                    Spacer()
-                   
+                    Text(viewModel.bottomDescriptiveText)
+                        .font(.caption)
+                        .padding(.bottom, LayoutConstants.padding)
+                    
                     decorativeGradientFooter
                 }
                 .padding()
-            }.frame(minHeight: UIScreen.main.bounds.height)
+            }
         }
     }
     
@@ -104,16 +101,16 @@ public struct ModernPaywallView: PaywallViewProtocol {
     
     private var decorativeGradientFooter: some View {
         DecorativeGradientBackground()
-        .blur(radius: 30)
-        .frame(height: 300)
-        .frame(maxWidth: .infinity)
-        .clipShape(
-            RoundedRectangle(cornerRadius: 60, style: .continuous)
-        )
-        .padding(.bottom, -100)
-        .offset(y: 100)
+            .blur(radius: 30)
+            .frame(height: 300)
+            .frame(maxWidth: .infinity)
+            .clipShape(
+                RoundedRectangle(cornerRadius: 60, style: .continuous)
+            )
+            .padding(.bottom, -100)
+            .offset(y: 100)
     }
-
+    
 }
 
 #Preview {

@@ -42,6 +42,6 @@ final public class BoldPaywallViewModel: PaywallViewModelProtocol {
     }
     
     var priceText: String {
-        "\(model.features[0].price) after. Cancel anytime."
+        "\(model.features[0].price)".formattedAsCurrency() + " Cancel anytime."
     }
 }
