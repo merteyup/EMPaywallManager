@@ -56,6 +56,11 @@ public struct Feature: Hashable, Sendable, Identifiable {
         descriptions: ["Full access to all premium features"],
         price: "$4.99/month"
     )
+    
+    public static let defaultDescriptions = ["Full access to all premium features",
+                                             "No ads",
+                                             "No interruptions",
+                                             "No limitations"]
 }
 
 extension Feature {

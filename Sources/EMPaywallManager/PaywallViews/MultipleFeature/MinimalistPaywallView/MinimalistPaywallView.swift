@@ -56,10 +56,11 @@ public struct MinimalistPaywallView: PaywallViewProtocol {
                         selectedFeature: $viewModel.selectedFeature
                     )
                     .padding(.top, 20)
+                    Spacer()
                 }
                 .padding()
                 .frame(maxHeight: .infinity)
-            }
+            }.frame(minHeight: UIScreen.main.bounds.height)
         }
     }
 }
@@ -171,9 +172,17 @@ struct ActionButtonsView: View {
             }
             .frame(minWidth: 150, maxWidth: .infinity)
             
-            PaywallButton(with: model.paywallButton) {
+            PaywallButton(
+                with: model.paywallButton ?? .init(
+                    title: "Get Now",
+                    backgroundColor: .blue,
+                    foregroundColor: .white,
+                    cornerRadius: 20
+                )
+            ) {
                 onSubscribe?(selectedFeature)
             }
+            
             .frame(minWidth: 150, maxWidth: .infinity)
         }
         .padding()

@@ -63,8 +63,19 @@ public struct BoldPaywallView: PaywallViewProtocol {
                         .padding(.leading, LayoutConstants.padding)
                         .padding(.bottom, LayoutConstants.highPadding)
                     
-                    PaywallButton(with: viewModel.model.paywallButton) {
-                        viewModel.onSubscribe?(viewModel.selectedFeature)
+                    Spacer()
+                    
+                    PaywallButton(
+                        with: viewModel.model.paywallButton ?? .init(
+                            title: "Get Now",
+                            backgroundColor: .yellow,
+                            foregroundColor: .black,
+                            cornerRadius: 12
+                        )
+                    ) {
+                        viewModel.onSubscribe?(
+                            viewModel.selectedFeature
+                        )
                     }
                     .padding(.horizontal, LayoutConstants.padding)
                     .padding(.bottom, LayoutConstants.smallPadding)
@@ -80,8 +91,11 @@ public struct BoldPaywallView: PaywallViewProtocol {
                             .padding(.horizontal, LayoutConstants.padding)
                             .padding(.bottom, LayoutConstants.legalBottomPadding)
                     }
+                    
+                    Spacer()
                 }
             }
+            .frame(minHeight: UIScreen.main.bounds.height)
         }
     }
 }

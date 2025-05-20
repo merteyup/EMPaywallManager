@@ -16,7 +16,14 @@ struct PaywallFooterView: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            PaywallButton(with: model.paywallButton) {
+            PaywallButton(
+                with: model.paywallButton ?? .init(
+                    title: "Get Now",
+                    backgroundColor: .blue,
+                    foregroundColor: .white,
+                    cornerRadius: 20
+                )
+            ) {
                 onSubscribe?(selectedFeature)
             }
             
@@ -25,14 +32,14 @@ struct PaywallFooterView: View {
             }
             .font(.footnote)
             .foregroundColor(.secondary)
-            .padding(.top, 16)
+            .padding(.top, LayoutConstants.smallPadding)
             
             Button("Restore Purchases") {
                 onRestore?()
             }
             .font(.footnote)
             .foregroundColor(.blue)
-            .padding(.top, 40)
+            .padding(.top, LayoutConstants.highPadding)
            
             
             if let legalTextArea = model.legalTextArea,

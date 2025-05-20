@@ -12,20 +12,20 @@ public struct SimplePaywallModel {
     public let title: String
     public let subtitle: String
     public let feature: Feature
-    public let buttonTitle: String
+    public let paywallButton: PaywallButtonModel?
 
     public init(
         icon: String = "star.fill",
         title: String = "Upgrade to Pro",
         subtitle: String = "Access all premium features",
         feature: Feature,
-        buttonTitle: String = "Continue"
+        paywallButton: PaywallButtonModel? = nil
     ) {
         self.icon = icon
         self.title = title
         self.subtitle = subtitle
         self.feature = feature
-        self.buttonTitle = buttonTitle
+        self.paywallButton = paywallButton
     }
 }
 
@@ -37,7 +37,7 @@ public extension SimplePaywallModel {
             subtitle: subtitle,
             features: [feature],
             dismissButton: DismissButtonModel(),
-            paywallButton: PaywallButtonModel(title: buttonTitle)
+            paywallButton: paywallButton
         )
     }
 }

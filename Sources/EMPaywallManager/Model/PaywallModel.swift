@@ -15,7 +15,7 @@ public struct PaywallModel: Hashable {
     public let features: [Feature]
     public let featureIcon: PaywallIcon?
     public let dismissButton: DismissButtonModel
-    public let paywallButton: PaywallButtonModel
+    public let paywallButton: PaywallButtonModel?
     public let legalTextArea: LegalTextArea?
     
     public init(
@@ -25,7 +25,7 @@ public struct PaywallModel: Hashable {
         features: [Feature],
         featureIcon: PaywallIcon? = nil,
         dismissButton: DismissButtonModel,
-        paywallButton: PaywallButtonModel,
+        paywallButton: PaywallButtonModel? = nil,
         legalTextArea: LegalTextArea? = nil
     ) {
         self.mainIcon = mainIcon
@@ -81,7 +81,7 @@ public extension PaywallModel {
                     descriptions: ["Get daily prompts for your journal",
                                    "It's an amazing feature so needed one more line",
                                    "And even one more"],
-                    price: "$2.00/month"
+                    price: "2.00"
                 )
             ],
             dismissButton: DismissButtonModel(iconName: .xmark, backgroundColor: .blue, foregroundColor: .white),
@@ -121,7 +121,7 @@ public extension PaywallModel {
                                    "And even one more",
                                    "And even one more",
                                    "And even one more"],
-                    price: "$2.00/month",
+                    price: "2.00",
                     iconName: "checkmark"
                 )
             ],
@@ -159,20 +159,20 @@ public extension PaywallModel {
                     descriptions: ["Get daily prompts for your journal",
                                    "It's an amazing feature so needed one more line",
                                    "And even one more"],
-                    price: "$6.00/month"
+                    price: "6.00"
                 ),
                 Feature(
                     id: "2_product_id",
                     title: "AI Suggestions",
                     descriptions: ["Smart suggestions powered by AI",
                                    "It's an amazing feature so needed one more line"],
-                    price: "$1.50/month"
+                    price: "1.50"
                 ),
                 Feature(
                     id: "3_product_id",
                     title: "Multi-device Sync",
                     descriptions: ["Sync your data across multiple devices"],
-                    price: "$1.00/month"
+                    price: "1.00"
                 )
             ],
             dismissButton: DismissButtonModel(iconName: .xmark, foregroundColor: .blue),
@@ -208,7 +208,7 @@ public extension PaywallModel {
                     descriptions: ["There's nothing between you and your favorite music",
                                    "It's an amazing feature so needed one more line",
                                    "And even one more"],
-                    price: "12.99/month"
+                    price: "12.99"
                 ),
             ],
             dismissButton: DismissButtonModel(backgroundColor: .clear),
