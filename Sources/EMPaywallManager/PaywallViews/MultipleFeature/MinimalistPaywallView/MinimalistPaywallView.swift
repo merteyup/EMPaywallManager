@@ -62,7 +62,6 @@ public struct MinimalistPaywallView: PaywallViewProtocol {
             }
         }
     }
-
 }
 
 
@@ -111,12 +110,10 @@ struct SubscriptionOption: View {
                         Text(title)
                             .fontWeight(.semibold)
                             .font(.headline)
-                            .foregroundColor(.primary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
                         Text(price)
                             .font(.caption)
-                            .foregroundColor(.primary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.bottom, 2)
                         
