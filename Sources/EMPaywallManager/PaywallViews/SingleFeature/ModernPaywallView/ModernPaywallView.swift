@@ -78,7 +78,7 @@ public struct ModernPaywallView: PaywallViewProtocol {
                         )
                     }
                     
-                    Text(viewModel.bottomDescriptiveText)
+                    Text(TextConstants.bottomDescriptiveText)
                         .font(.caption)
                         .padding(.bottom, LayoutConstants.padding)
                     

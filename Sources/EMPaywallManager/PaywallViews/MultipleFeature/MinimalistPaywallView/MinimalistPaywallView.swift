@@ -34,9 +34,7 @@ public struct MinimalistPaywallView: PaywallViewProtocol {
                     }
                     
                     Divider()
-                    
-                    Spacer()
-                    
+                                        
                     Text(viewModel.model.subtitle)
                         .font(.largeTitle.weight(.bold))
                         .foregroundColor(.primary)
@@ -46,7 +44,6 @@ public struct MinimalistPaywallView: PaywallViewProtocol {
                     SubscriptionView(viewModel: viewModel, selectedFeature: $viewModel.selectedFeature)
                         .padding(.top, 20)
                     
-                    Spacer()
                     
                     ActionButtonsView(
                         model: viewModel.model,
@@ -56,11 +53,14 @@ public struct MinimalistPaywallView: PaywallViewProtocol {
                         selectedFeature: $viewModel.selectedFeature
                     )
                     .padding(.top, 20)
-                    Spacer()
+                    
+                    Text(TextConstants.bottomDescriptiveText)
+                        .font(.caption)
+                    
                 }
                 .padding()
                 .frame(maxHeight: .infinity)
-            }.frame(minHeight: UIScreen.main.bounds.height)
+            }
         }
     }
 }
@@ -162,7 +162,7 @@ struct ActionButtonsView: View {
                 Text("Cancel")
                     .font(.headline)
                     .foregroundColor(.blue)
-                    .frame(width: 150, height: 50)
+                    .frame(maxWidth: .infinity, minHeight: 50)
                     .background(Color.blue.opacity(0.1))
                     .cornerRadius(25)
                     .overlay(

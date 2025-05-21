@@ -49,6 +49,4 @@ final public class ModernPaywallViewModel: ObservableObject, PaywallViewModelPro
         FeatureStep(title: "In 5 Days", description: "Unlock next steps", icon: "gift.fill"),
         FeatureStep(title: "In 7 Days", description: "Celebrate your growth", icon: "party.popper.fill")
     ]
-    
-    let bottomDescriptiveText = "You can cancel your subscription any time you want."
 }
