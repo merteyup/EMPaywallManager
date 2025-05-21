@@ -16,5 +16,6 @@ public struct PaywallIcon: Hashable, Sendable {
         self.color = color
     }
 
-    public static let `default` = PaywallIcon(name: "star.fill", color: .blue)
+    public static let `default` = PaywallIcon(name: "star.fill",
+                                              color: .blue)
 }

@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct DismissButton: View {
-    var alignment: Alignment
-    var backgroundColor: Color = .blue
+    var model: DismissButtonModel
     let onDismiss: (() -> Void)?
     
     var body: some View {
@@ -17,22 +16,20 @@ struct DismissButton: View {
             Button(action: {
                 onDismiss?()
             }) {
-                Image(systemName: "xmark")
+                Image(systemName: model.iconName)
                     .font(.headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(model.foregroundColor)
                     .padding(10)
-                    .background(backgroundColor)
+                    .background(model.backgroundColor)
                     .clipShape(Circle())
             }
-            .padding()
         }
-        .frame(maxWidth: .infinity, alignment: alignment)
-        .padding(.top, 16)
+        .frame(maxWidth: .infinity, alignment: model.alignment)
     }
 }
 
 #Preview {
-    DismissButton(alignment: .leading) {
+    DismissButton(model: DismissButtonModel()) {
         print("Subscribed")
     }
 }

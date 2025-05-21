@@ -14,8 +14,8 @@ public struct PaywallModel: Hashable {
     public let subtitle: String
     public let features: [Feature]
     public let featureIcon: PaywallIcon?
-    public let dismissButton: PaywallButtonModel
-    public let paywallButton: PaywallButtonModel
+    public let dismissButton: DismissButtonModel
+    public let paywallButton: PaywallButtonModel?
     public let legalTextArea: LegalTextArea?
     
     public init(
@@ -24,8 +24,8 @@ public struct PaywallModel: Hashable {
         subtitle: String,
         features: [Feature],
         featureIcon: PaywallIcon? = nil,
-        dismissButton: PaywallButtonModel,
-        paywallButton: PaywallButtonModel,
+        dismissButton: DismissButtonModel,
+        paywallButton: PaywallButtonModel? = nil,
         legalTextArea: LegalTextArea? = nil
     ) {
         self.mainIcon = mainIcon
@@ -36,13 +36,6 @@ public struct PaywallModel: Hashable {
         self.dismissButton = dismissButton
         self.paywallButton = paywallButton
         self.legalTextArea = legalTextArea
-    }
-    
-    public var featureMessages: [String] {
-        features.map { feature in
-            let descriptionPart = feature.description.isEmpty ? "" : " - \(feature.description)"
-            return "\(feature.title)\(descriptionPart)"
-        }
     }
     
     public static func == (lhs: PaywallModel, rhs: PaywallModel) -> Bool {
@@ -70,24 +63,44 @@ public struct PaywallModel: Hashable {
 
 @MainActor
 public extension PaywallModel {
+    
+    static var mockLegalText = "By clicking \"Try Now\" you agree to our Terms of Use and Privacy Policy. We do not sell or share your personal data. You can turn off auto renewal at any time. Check Promotion Terms and Conditions."
+    static var mockLegalTerms = (title: "Terms of Use", url: "https://example.com/terms")
+    static var mockLegalPrivacy = (title: "Privacy Policy", url: "https://example.com/privacy")
+    static var mockLegalConditions = (title: "Promotion Terms and Conditions.", url: "https://example.com/license")
+    
     static var mockClassic: PaywallModel {
         PaywallModel(
             mainIcon: PaywallIcon(name: "lock", color: .blue),
             title: "Unlock Premium",
             subtitle: "Access all features and enjoy the full experience",
             features: [
-                Feature(title: "Daily Journal Prompts", description: "Get daily prompts for your journal", price: "$2.00/month"),
-                Feature(title: "AI Suggestions", description: "Smart suggestions powered by AI", price: "$1.50/month"),
-                Feature(title: "Multi-device Sync", description: "Sync your data across multiple devices", price: "$1.00/month")
+                Feature(
+                    id: "1_product_id",
+                    title: "Daily Journal Prompts",
+                    descriptions: ["Get daily prompts for your journal",
+                                   "It's an amazing feature so needed one more line",
+                                   "And even one more"],
+                    price: "2.00"
+                )
             ],
-            dismissButton: PaywallButtonModel(title: "", backgroundColor: .blue, foregroundColor: .white),
-            paywallButton: PaywallButtonModel(title: "Get Premium", backgroundColor: .blue, foregroundColor: .white),
+            dismissButton: DismissButtonModel(iconName: .xmark, backgroundColor: .blue, foregroundColor: .white),
+            paywallButton: PaywallButtonModel(title: "Get Premium"),
             legalTextArea: LegalTextArea(
-                legalText: "By clicking \"Try Now\" you agree to our Terms of Use and Privacy Policy. We do not sell or share your personal data. You can turn off auto renewal at any time. Check Promotion Terms and Conditions.",
+                legalText: mockLegalText,
                 legalLinks: [
-                    .init(title: "Terms of Use", url: "https://example.com/terms"),
-                    .init(title: "Privacy Policy", url: "https://example.com/privacy"),
-                    .init(title: "Promotion Terms and Conditions.", url:  "https://example.com/license")]
+                    .init(
+                        title: mockLegalTerms.title,
+                        url: mockLegalTerms.url
+                    ),
+                    .init(
+                        title: mockLegalPrivacy.title,
+                        url: mockLegalPrivacy.url
+                    ),
+                    .init(
+                        title: mockLegalConditions.title,
+                        url:  mockLegalConditions.url
+                    )]
             )
         )
     }
@@ -98,23 +111,38 @@ public extension PaywallModel {
             title: "Unlock Premium",
             subtitle: "Access all features and enjoy the full experience",
             features: [
-                Feature(title: "Daily Journal Prompts", description: "Get daily prompts for your journal", price: "$2.00/month", iconName: "checkmark"),
-                Feature(title: "AI Suggestions", description: "Smart suggestions powered by AI", price: "$1.50/month"),
-                Feature(title: "OpenAI Support", description: "Get advices from chatGPT", price: "$0.90/month"),
-                Feature(title: "Colorful themes", description: "Add some color into your project", price: "$1.00/month"),
-                Feature(title: "Auto Readme generator", description: "Easy to develop, easy to document", price: "$1.00/month"),
-                Feature(title: "Live chat module", description: "When you need, real help is just a tap away", price: "$1.00/month"),
-                Feature(title: "Add your friends", description: "If you want, you can sync your friends", price: "$1.00/month"),
+                Feature(
+                    id: "1_product_id",
+                    title: "Daily Journal Prompts",
+                    descriptions: ["Get daily prompts for your journal",
+                                   "It's an amazing feature so needed one more line",
+                                   "And even one more",
+                                   "And even one more",
+                                   "And even one more",
+                                   "And even one more",
+                                   "And even one more"],
+                    price: "2.00",
+                    iconName: "checkmark"
+                )
             ],
             featureIcon: PaywallIcon(name: "checkmark", color: .purple),
-            dismissButton: PaywallButtonModel(title: "", backgroundColor: .purple, foregroundColor: .white),
-            paywallButton: PaywallButtonModel(title: "Start Free Trial", backgroundColor: .purple, foregroundColor: .white, cornerRadius: 12),
+            dismissButton: DismissButtonModel(backgroundColor: .purple),
+            paywallButton: PaywallButtonModel(title: "Start Free Trial", backgroundColor: .purple, cornerRadius: 12),
             legalTextArea: LegalTextArea(
-                legalText: "By clicking \"Try Now\" you agree to our Terms of Use and Privacy Policy. We do not sell or share your personal data. You can turn off auto renewal at any time. Check Promotion Terms and Conditions.",
+                legalText: mockLegalText,
                 legalLinks: [
-                    .init(title: "Terms of Use", url: "https://example.com/terms"),
-                    .init(title: "Privacy Policy", url: "https://example.com/privacy"),
-                    .init(title: "Promotion Terms and Conditions.", url:  "https://example.com/license")]
+                    .init(
+                        title: mockLegalTerms.title,
+                        url: mockLegalTerms.url
+                    ),
+                    .init(
+                        title: mockLegalPrivacy.title,
+                        url: mockLegalPrivacy.url
+                    ),
+                    .init(
+                        title: mockLegalConditions.title,
+                        url:  mockLegalConditions.url
+                    )]
             )
         )
     }
@@ -125,18 +153,45 @@ public extension PaywallModel {
             title: "Get Premium",
             subtitle: "Get the Premium that's right for you",
             features: [
-                Feature(title: "Daily Journal Prompts", description: "Get daily prompts for your journal", price: "$2.00/month"),
-                Feature(title: "AI Suggestions", description: "Smart suggestions powered by AI", price: "$1.50/month"),
-                Feature(title: "Multi-device Sync", description: "Sync your data across multiple devices", price: "$1.00/month")
+                Feature(
+                    id: "1_product_id",
+                    title: "Daily Journal Prompts",
+                    descriptions: ["Get daily prompts for your journal",
+                                   "It's an amazing feature so needed one more line",
+                                   "And even one more"],
+                    price: "6.00"
+                ),
+                Feature(
+                    id: "2_product_id",
+                    title: "AI Suggestions",
+                    descriptions: ["Smart suggestions powered by AI",
+                                   "It's an amazing feature so needed one more line"],
+                    price: "1.50"
+                ),
+                Feature(
+                    id: "3_product_id",
+                    title: "Multi-device Sync",
+                    descriptions: ["Sync your data across multiple devices"],
+                    price: "1.00"
+                )
             ],
-            dismissButton: PaywallButtonModel(title: "", backgroundColor: .gray, foregroundColor: .white),
-            paywallButton: PaywallButtonModel(title: "Confirm", backgroundColor: .blue, foregroundColor: .white),
+            dismissButton: DismissButtonModel(iconName: .xmark, foregroundColor: .blue),
+            paywallButton: PaywallButtonModel(title: "Confirm"),
             legalTextArea: LegalTextArea(
-                legalText: "By clicking \"Try Now\" you agree to our Terms of Use and Privacy Policy. We do not sell or share your personal data. You can turn off auto renewal at any time. Check Promotion Terms and Conditions.",
+                legalText: mockLegalText,
                 legalLinks: [
-                    .init(title: "Terms of Use", url: "https://example.com/terms"),
-                    .init(title: "Privacy Policy", url: "https://example.com/privacy"),
-                    .init(title: "Promotion Terms and Conditions.", url:  "https://example.com/license")]
+                    .init(
+                        title: mockLegalTerms.title,
+                        url: mockLegalTerms.url
+                    ),
+                    .init(
+                        title: mockLegalPrivacy.title,
+                        url: mockLegalPrivacy.url
+                    ),
+                    .init(
+                        title: mockLegalConditions.title,
+                        url:  mockLegalConditions.url
+                    )]
             )
         )
     }
@@ -147,16 +202,32 @@ public extension PaywallModel {
             title: "1 Month Free Trial",
             subtitle: "Unlimited Access to 100 Million Songs",
             features: [
-                Feature(title: "Unlimited Access to 100 Million Songs", description: "There's nothing between you and your favorite music", price: "12.99/month"),
+                Feature(
+                    id: "1_product_id",
+                    title: "Unlimited Access to 100 Million Songs",
+                    descriptions: ["There's nothing between you and your favorite music",
+                                   "It's an amazing feature so needed one more line",
+                                   "And even one more"],
+                    price: "12.99"
+                ),
             ],
-            dismissButton: PaywallButtonModel(title: "", backgroundColor: .clear, foregroundColor: .white),
+            dismissButton: DismissButtonModel(backgroundColor: .clear),
             paywallButton: PaywallButtonModel(title: "Try now", backgroundColor: .yellow, foregroundColor: .black, cornerRadius: 8),
             legalTextArea: LegalTextArea(
-                legalText: "By clicking \"Try Now\" you agree to our Terms of Use and Privacy Policy. We do not sell or share your personal data. You can turn off auto renewal at any time. Check Promotion Terms and Conditions.",
+                legalText: mockLegalText,
                 legalLinks: [
-                    .init(title: "Terms of Use", url: "https://example.com/terms"),
-                    .init(title: "Privacy Policy", url: "https://example.com/privacy"),
-                    .init(title: "Promotion Terms and Conditions.", url:  "https://example.com/license")]
+                    .init(
+                        title: mockLegalTerms.title,
+                        url: mockLegalTerms.url
+                    ),
+                    .init(
+                        title: mockLegalPrivacy.title,
+                        url: mockLegalPrivacy.url
+                    ),
+                    .init(
+                        title: mockLegalConditions.title,
+                        url:  mockLegalConditions.url
+                    )]
             )
         )
     }

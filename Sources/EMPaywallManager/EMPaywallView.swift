@@ -8,7 +8,10 @@
 import SwiftUI
 
 public enum PaywallType: String, CaseIterable {
-    case classic, modern, minimalist, bold, imageHeavy, animationDriven, testimonialBased, gradientStyle, fullScreen, splitLayout
+    case classic, modern, minimalist, bold
+    
+    // TODO: Will be implemented.
+    //imageHeavy, animationDriven, testimonialBased, gradientStyle, fullScreen, splitLayout
 }
 
 public struct EMPaywallView: View {
@@ -17,19 +20,22 @@ public struct EMPaywallView: View {
     let onSubscribe: ((Feature) -> Void)?
     let onRestore: (() -> Void)?
     let onDismiss: (() -> Void)?
+    let onFeatureSelect: ((Feature) -> Void)?
 
     public init(
         model: PaywallModel,
         variant: PaywallType,
         onSubscribe: ((Feature) -> Void)? = nil,
         onRestore: (() -> Void)? = nil,
-        onDismiss: (() -> Void)? = nil
+        onDismiss: (() -> Void)? = nil,
+        onFeatureSelect: ((Feature) -> Void)? = nil
     ) {
         self.model = model
         self.variant = variant
         self.onSubscribe = onSubscribe
         self.onRestore = onRestore
         self.onDismiss = onDismiss
+        self.onFeatureSelect = onFeatureSelect
     }
 
     public var body: some View {
@@ -39,7 +45,8 @@ public struct EMPaywallView: View {
                 model: model,
                 onSubscribe: onSubscribe,
                 onRestore: onRestore,
-                onDismiss: onDismiss
+                onDismiss: onDismiss,
+                onFeatureSelect: onFeatureSelect
             ))
 
         case .classic:
@@ -47,7 +54,8 @@ public struct EMPaywallView: View {
                 model: model,
                 onSubscribe: onSubscribe,
                 onRestore: onRestore,
-                onDismiss: onDismiss
+                onDismiss: onDismiss,
+                onFeatureSelect: onFeatureSelect
             ))
 
         case .minimalist:
@@ -55,7 +63,8 @@ public struct EMPaywallView: View {
                 model: model,
                 onSubscribe: onSubscribe,
                 onRestore: onRestore,
-                onDismiss: onDismiss
+                onDismiss: onDismiss,
+                onFeatureSelect: onFeatureSelect
             ))
 
         case .modern:
@@ -63,7 +72,8 @@ public struct EMPaywallView: View {
                 model: model,
                 onSubscribe: onSubscribe,
                 onRestore: onRestore,
-                onDismiss: onDismiss
+                onDismiss: onDismiss,
+                onFeatureSelect: onFeatureSelect
             ))
 
         default:
@@ -77,14 +87,16 @@ public extension EMPaywallView {
         using model: PaywallModel,
         onSubscribe: ((Feature) -> Void)? = nil,
         onRestore: (() -> Void)? = nil,
-        onDismiss: (() -> Void)? = nil
+        onDismiss: (() -> Void)? = nil,
+        onFeatureSelect: ((Feature) -> Void)? = nil
     ) -> some View {
         EMPaywallView(
             model: model,
             variant: PaywallABManager.shared.assignedType,
             onSubscribe: onSubscribe,
             onRestore: onRestore,
-            onDismiss: onDismiss
+            onDismiss: onDismiss,
+            onFeatureSelect: onFeatureSelect
         )
     }
 }

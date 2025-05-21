@@ -15,8 +15,8 @@ public struct PaywallButtonModel: Hashable {
 
     public init(
         title: String,
-        backgroundColor: Color? = nil,
-        foregroundColor: Color? = nil,
+        backgroundColor: Color? = .blue,
+        foregroundColor: Color? = .white,
         cornerRadius: CGFloat? = nil
     ) {
         self.title = title

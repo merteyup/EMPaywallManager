@@ -8,6 +8,7 @@
 import Foundation
 
 enum LayoutConstants {
+    static let highPadding: CGFloat = 48
     static let padding: CGFloat = 24
     static let smallPadding: CGFloat = 12
     static let legalBottomPadding: CGFloat = 55
