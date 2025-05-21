@@ -16,53 +16,53 @@ public struct MinimalistPaywallView: PaywallViewProtocol {
     }
     
     public var body: some View {
-        ScrollView {
-            ZStack {
-                if let background = viewModel.mainBackground {
-                    background
-                }
-                
-                VStack {
-                    HStack(alignment: .bottom) {
-                        Text(viewModel.model.title)
-                            .font(.title.weight(.bold))
-                            .foregroundColor(.primary)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        DismissButton(model: viewModel.model.dismissButton) {
-                            viewModel.onDismiss?()
-                        }
+        GeometryReader { geometry in
+            ScrollView {
+                ZStack {
+                    if let background = viewModel.mainBackground {
+                        background
+                            .ignoresSafeArea()
                     }
-                    
-                    Divider()
-                                        
-                    Text(viewModel.model.subtitle)
-                        .font(.largeTitle.weight(.bold))
-                        .foregroundColor(.primary)
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .center)
-                    
-                    SubscriptionView(viewModel: viewModel, selectedFeature: $viewModel.selectedFeature)
-                        .padding(.top, 20)
-                    
-                    
-                    ActionButtonsView(
-                        model: viewModel.model,
-                        onSubscribe: viewModel.onSubscribe,
-                        onRestore: viewModel.onRestore,
-                        onDismiss: viewModel.onDismiss,
-                        selectedFeature: $viewModel.selectedFeature
-                    )
-                    .padding(.top, 20)
-                    
-                    Text(TextConstants.bottomDescriptiveText)
-                        .font(.caption)
-                    
+
+                    VStack(spacing: 16) {
+                        HStack(alignment: .bottom) {
+                            Text(viewModel.model.title)
+                                .font(.title.weight(.bold))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+
+                            DismissButton(model: viewModel.model.dismissButton) {
+                                viewModel.onDismiss?()
+                            }
+                        }
+
+                        Divider()
+
+                        Text(viewModel.model.subtitle)
+                            .font(.largeTitle.weight(.bold))
+                            .multilineTextAlignment(.center)
+
+                        SubscriptionView(viewModel: viewModel, selectedFeature: $viewModel.selectedFeature)
+                            .padding(.top, 20)
+
+                        ActionButtonsView(
+                            model: viewModel.model,
+                            onSubscribe: viewModel.onSubscribe,
+                            onRestore: viewModel.onRestore,
+                            onDismiss: viewModel.onDismiss,
+                            selectedFeature: $viewModel.selectedFeature
+                        )
+                        .padding(.top, geometry.size.height * 0.2)
+
+                        Text(TextConstants.bottomDescriptiveText)
+                            .font(.caption)
+                            .multilineTextAlignment(.center)
+                    }
+                    .padding()
                 }
-                .padding()
-                .frame(maxHeight: .infinity)
             }
         }
     }
+
 }
 
 
@@ -78,7 +78,7 @@ struct SubscriptionView: View {
                 SubscriptionOption(
                     index: index,
                     title: viewModel.model.features[index].title,
-                    price: viewModel.model.features[index].price,
+                    price: viewModel.model.features[index].price.formattedAsCurrency(),
                     descriptions: viewModel.model.features[index].descriptions,
                     isSelected: selectedOptionIndex == index,
                     onTap: {
@@ -164,9 +164,9 @@ struct ActionButtonsView: View {
                     .foregroundColor(.blue)
                     .frame(maxWidth: .infinity, minHeight: 50)
                     .background(Color.blue.opacity(0.1))
-                    .cornerRadius(25)
+                    .cornerRadius(20)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 25)
+                        RoundedRectangle(cornerRadius: 20)
                             .stroke(Color.blue.opacity(0.3), lineWidth: 1)
                     )
             }
