@@ -37,6 +37,26 @@ public struct EMPaywallView: View {
         self.onDismiss = onDismiss
         self.onFeatureSelect = onFeatureSelect
     }
+    
+    public init(
+        singleFeature: Feature,
+        variant: PaywallType,
+        onSubscribe: @escaping (Feature) -> Void,
+        onRestore: @escaping () -> Void,
+        onDismiss: @escaping () -> Void,
+        onFeatureSelect: @escaping ((Feature) -> Void)
+    ) {
+        let simpleModel = SimplePaywallModel(feature: singleFeature).toPaywallModel()
+        self.init(
+            model: simpleModel,
+            variant: variant,
+            onSubscribe: onSubscribe,
+            onRestore: onRestore,
+            onDismiss: onDismiss,
+            onFeatureSelect: onFeatureSelect
+        )
+    }
+
 
     public var body: some View {
         switch variant {
