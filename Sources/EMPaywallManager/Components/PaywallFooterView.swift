@@ -16,21 +16,31 @@ struct PaywallFooterView: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            PaywallButton(with: model.paywallButton) {
+            PaywallButton(
+                with: model.paywallButton ?? .init(
+                    title: "Get Now",
+                    backgroundColor: .blue,
+                    foregroundColor: .white,
+                    cornerRadius: 20
+                )
+            ) {
                 onSubscribe?(selectedFeature)
             }
-            
-            Button("Restore Purchases") {
-                onRestore?()
-            }
-            .font(.footnote)
-            .foregroundColor(.blue)
             
             Button("Not now") {
                 onDismiss?()
             }
             .font(.footnote)
             .foregroundColor(.secondary)
+            .padding(.top, LayoutConstants.smallPadding)
+            
+            Button("Restore Purchases") {
+                onRestore?()
+            }
+            .font(.footnote)
+            .foregroundColor(.blue)
+            .padding(.top, LayoutConstants.highPadding)
+           
             
             if let legalTextArea = model.legalTextArea,
                let links = legalTextArea.legalLinks {

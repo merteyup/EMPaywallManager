@@ -40,26 +40,20 @@ struct EMIconLabel: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            if messages.isEmpty {
-                Text("Kampanyasız görünüm için iyileştirmeye açıktır.")
-                    .foregroundColor(.secondary)
-                    .italic()
-            } else {
-                ForEach(messages, id: \.self) { message in
-                    HStack(alignment: .center, spacing: 8) {
-                        if iconAlignment == .left {
-                            iconView
-                        }
-
-                        Text(message)
-                            .font(.callout)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.7)
-
-                        if iconAlignment == .right {
-                            Spacer()
-                            iconView
-                        }
+            ForEach(messages, id: \.self) { message in
+                HStack(alignment: .center, spacing: 8) {
+                    if iconAlignment == .left {
+                        iconView
+                    }
+                    
+                    Text(message)
+                        .font(.callout)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
+                    
+                    if iconAlignment == .right {
+                        Spacer()
+                        iconView
                     }
                 }
             }

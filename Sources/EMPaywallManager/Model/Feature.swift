@@ -5,44 +5,62 @@
 //  Created by Eyüp Mert on 12.05.2025.
 //
 
-public struct Feature: Hashable, Sendable {
+public struct Feature: Hashable, Sendable, Identifiable {
+    public let id: String
     public let title: String
-    public let description: String
+    public let descriptions: [String]
     public let price: String
     public let iconName: String?
     
-    public init(title: String, description: String = "", price: String, iconName: String? = nil) {
+    public init(
+        id: String,
+        title: String,
+        descriptions: [String] = [],
+        price: String,
+        iconName: String? = nil
+    ) {
+        self.id = id
         self.title = title
-        self.description = description
+        self.descriptions = descriptions
         self.price = price
         self.iconName = iconName
     }
     
     public static func == (lhs: Feature, rhs: Feature) -> Bool {
-        return lhs.title == rhs.title &&
-        lhs.description == rhs.description &&
+        return
+        lhs.id == rhs.id &&
+        lhs.title == rhs.title &&
+        lhs.descriptions == rhs.descriptions &&
         lhs.price == rhs.price &&
         lhs.iconName == rhs.iconName
     }
     
     public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
         hasher.combine(title)
-        hasher.combine(description)
+        hasher.combine(descriptions)
         hasher.combine(price)
         hasher.combine(iconName)
     }
     
     public static let fallback = Feature(
+        id: "1234_fallbackProduct",
         title: "Premium Access",
-        description: "Full access to all premium features",
+        descriptions: ["Full access to all premium features"],
         price: "$4.99/month"
     )
     
     public static let mock = Feature(
+        id: "1234_mockProduct",
         title: "Premium Access",
-        description: "Full access to all premium features",
+        descriptions: ["Full access to all premium features"],
         price: "$4.99/month"
     )
+    
+    public static let defaultDescriptions = ["Full access to all premium features",
+                                             "No ads",
+                                             "No interruptions",
+                                             "No limitations"]
 }
 
 extension Feature {
